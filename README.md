@@ -1,27 +1,30 @@
 # PaskAudio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
+PaskAudio is a self hosted web music player that works by connecting to a subsonic server.
+You have to provide the web server yourself, and build the project for use.
 
-## Development server
+I personally use firebase as a web server, astiga as the subsonic server, and pCloud as
+my music storage.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## What and why
 
-## Code scaffolding
+The main idea behind this application is to resemble Google Play Music, as in,
+have a big emphasis on imagery. I really enjoyed how visual Play Music was,
+and I couldn't find anything similar, so I decided to create one myself.
+I was also surprised that most existing web players did not handle queue correctly in my opinion,
+or did not have genre list / allow me to play songs randomly from a specific genre.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Caveats
 
-## Build
+Please understand that this project is, first and foremost, for my own use and as such,
+I have implemented features that I find the most useful. I'm still planning on
+adding artists tab, a search button and, if I manage to make service workers behave
+in a way that does not interfere with the song player, I'd like to use one to cache images
+(and possibly songs).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Closing
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+If you have any ideas on how to make the application better, I'm happy to hear them,
+but I emphasize that this application is mainly for my personal use, so I might not be
+willing to add features that I'd never use. In such cases, I'd encourage you to fork
+the project and make it fit your needs.

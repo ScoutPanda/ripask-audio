@@ -1,0 +1,37 @@
+<mat-table [dataSource]="songs" class="mat-elevation-z4">
+  <ng-container matColumnDef="track">
+    <mat-header-cell *matHeaderCellDef style="max-width: 3.5rem;">#</mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index" style="max-width: 3.5rem;">
+      <svg *ngIf="playerService.currentSong?.id === element.id && !playerService.paused; else trackNumber" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none repeat scroll 0 0; display: block; width: 100%;" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <g transform="rotate(180 50 50)"><rect x="40" y="32.75" width="16" height="40" fill="#000000">
+          <animate attributeName="height" calcMode="spline" values="23;34.5;4.6000000000000005;23" times="0;0.33;0.66;1" dur="3.3333333333333335s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite" begin="-1.6666666666666667s"></animate>
+        </rect><rect x="61" y="32.75" width="16" height="40" fill="#000000">
+          <animate attributeName="height" calcMode="spline" values="23;34.5;4.6000000000000005;23" times="0;0.33;0.66;1" dur="3.3333333333333335s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite" begin="-2.5s"></animate>
+        </rect><rect x="82" y="32.75" width="16" height="40" fill="#000000">
+          <animate attributeName="height" calcMode="spline" values="23;34.5;4.6000000000000005;23" times="0;0.33;0.66;1" dur="3.3333333333333335s" keySplines="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite" begin="0s"></animate>
+        </rect></g>
+      </svg>
+      <ng-template #trackNumber>
+        {{queue ? i + 1 : element.track}}
+      </ng-template>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let element"><p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{element.title}}</p></mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="length">
+    <mat-header-cell *matHeaderCellDef style="max-width: 4.5rem;">Length</mat-header-cell>
+    <mat-cell *matCellDef="let element" style="max-width: 4.5rem;">{{element.length}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="artist">
+    <mat-header-cell *matHeaderCellDef>Artist</mat-header-cell>
+    <mat-cell *matCellDef="let element"><p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{element.artist}}</p></mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="album">
+    <mat-header-cell *matHeaderCellDef>Album</mat-header-cell>
+    <mat-cell *matCellDef="let element"><p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{element.album}}</p></mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row class="clickable" *matRowDef="let row; columns: displayedColumns;" (click)="play(row)"></mat-row>
+</mat-table>

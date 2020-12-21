@@ -1,0 +1,18 @@
+<div class="card mat-elevation-z4">
+  <ng-container *ngIf="album as album">
+    <div class="album-box clickable">
+      <div class="album">
+        <div class="album-container" [routerLink]="'/album/' + album.id">
+          <img class="img-responsive" [src]="album.coverArtUrl" alt="" loading="lazy" [title]="album.album" width="300" height="300">
+        </div>
+        <div class="album-overlay clickable" (click)="playAlbum(album.id)">
+          <mat-icon class="play-card" [color]="'primary'">play_arrow</mat-icon>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="title" [title]="album.album">{{album.album}}</div>
+      <div class="title subtitle" [title]="album.artist">{{album.artist}}</div>
+    </div>
+  </ng-container>
+</div>

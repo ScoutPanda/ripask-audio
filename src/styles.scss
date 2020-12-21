@@ -1,1 +1,119 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$pask-audio-primary: mat-palette($mat-orange, 400);
+$pask-audio-accent: mat-palette($mat-gray, A200, 100, A400);
+
+// The warn palette is optional (defaults to red).
+$pask-audio-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$pask-audio-theme: mat-light-theme((
+  color: (
+    primary: $pask-audio-primary,
+    accent: $pask-audio-accent,
+    warn: $pask-audio-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($pask-audio-theme);
+
 /* You can add global styles to this file, and also import other style files */
+
+@import '~bootstrap/scss/bootstrap-grid.scss';
+@import '~bootstrap/scss/bootstrap.scss';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: mat-color($pask-audio-accent, lighter); }
+
+.mat-menu-panel {
+  min-width: 0 !important;
+}
+
+.highlight {
+  color: mat-color($pask-audio-primary, darker);
+}
+
+.active {
+  opacity: 1 !important;
+  border-bottom: 2px solid white;
+}
+
+.title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+.subtitle.title {
+  opacity: .7;
+  font-weight: initial;
+}
+
+.mat-slider-track-fill {
+  background-color: mat-color($pask-audio-primary, darker);
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+img {
+  background: url("./assets/no-image.png");
+  background-size: contain;
+}
+
+img {
+  background-color: lightgray;
+}
+
+.card-body {
+  padding: 10px !important;
+}
+
+p {
+  margin: 0 !important;
+}
+
+.album-overlay {
+  background-color: mat-color($pask-audio-accent, lighter);
+  font-size: 32px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: 10;
+  border: solid mat-color($pask-audio-primary, darker) 2px;
+  border-radius: 100px;
+}
+
+.album-overlay:hover {
+  background-color: mat-color($pask-audio-primary, lighter) !important;
+  transition: .5s ease;
+}
+
+.play-card {
+  font-size: 32px;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

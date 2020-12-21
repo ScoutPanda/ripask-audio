@@ -1,0 +1,49 @@
+<div style="width: 100%;">
+  <div class="slider">
+    <app-player-slider class="progress-slider" [value]="playerService.currentProgress" (input)="setCurrentTime($event)" [disabled]="!playerService.songLoaded()"></app-player-slider>
+  </div>
+  <div class="controls">
+    <div class="controls-start">
+      <div class="art">
+        <img [src]="coverArtUrl()" alt="" height="60" width="60">
+      </div>
+      <div class="info">
+        <div class="title-player title" [title]="playerService.currentSong?.title">{{playerService.currentSong?.title}}</div>
+        <div class="artist-player title subtitle" [title]="playerService.currentSong?.artist">{{playerService.currentSong?.artist}}</div>
+      </div>
+    </div>
+    <div class="controls-middle">
+      <button mat-icon-button (click)="playRandomSongs()">
+        <mat-icon>music_note</mat-icon>
+      </button>
+      <button mat-icon-button (click)="playerService.toggleShuffle()">
+        <mat-icon [class.highlight]="shuffle">shuffle</mat-icon>
+      </button>
+      <button mat-icon-button (click)="playerService.toggleRepeat()">
+        <mat-icon [class.highlight]="repeat">loop</mat-icon>
+      </button>
+      <button mat-icon-button (click)="playerService.previousSong()" [disabled]="!playerService.songLoaded()">
+        <mat-icon>skip_previous</mat-icon>
+      </button>
+      <button mat-icon-button (click)="playerService.togglePaused()" [disabled]="!playerService.songLoaded()">
+        <mat-icon class="primary-play-btn" [color]="'primary'" [inline]="true">{{getPlayIcon()}}</mat-icon>
+      </button>
+      <button mat-icon-button (click)="playerService.nextSong()" [disabled]="!playerService.songLoaded()">
+        <mat-icon>skip_next</mat-icon>
+      </button>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>{{getVolumeIcon()}}</mat-icon>
+      </button>
+      <button mat-icon-button [routerLink]="'/queue'">
+        <mat-icon>queue_music</mat-icon>
+      </button>
+      <button mat-icon-button [routerLink]="'/account'">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <mat-slider [value]="playerService.playerVolume" [color]="'primary'" (input)="onInputChange($event)" max="1" min="0" [step]="0.05" vertical="true"></mat-slider>
+      </mat-menu>
+    </div>
+    <div class="controls-end"></div>
+  </div>
+</div>
