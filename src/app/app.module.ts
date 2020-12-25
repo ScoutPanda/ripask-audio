@@ -13,7 +13,6 @@ import {MatSliderModule} from "@angular/material/slider";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatTableModule} from "@angular/material/table";
-import {SongsComponent} from "./songs/songs.component";
 import {QueueComponent} from "./queue/queue.component";
 import {NavbarComponent} from "./navbar/navbar.component";
 import {RecentsComponent} from "./recents/recents.component";
@@ -34,7 +33,6 @@ import {FormsModule} from "@angular/forms";
   declarations: [
     AppComponent,
     PlayerComponent,
-    SongsComponent,
     QueueComponent,
     NavbarComponent,
     RecentsComponent,
