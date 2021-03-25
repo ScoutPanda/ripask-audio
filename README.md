@@ -17,10 +17,7 @@ or did not have genre list / allow me to play songs randomly from a specific gen
 ## Caveats
 
 Please understand that this project is, first and foremost, for my own use and as such,
-I have implemented features that I find the most useful. I'm still planning on
-adding artists tab, a search button and, if I manage to make service workers behave
-in a way that does not interfere with the song player, I'd like to use one to cache images
-(and possibly songs).
+I have implemented features that I find the most useful.
 
 ## Closing
 
