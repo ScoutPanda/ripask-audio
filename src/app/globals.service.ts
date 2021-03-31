@@ -9,7 +9,7 @@ import {map, tap} from "rxjs/operators";
 })
 export class GlobalsService {
   private readonly _type = "json";
-  private readonly _app = "pask-audio";
+  private readonly _app = "ripask-audio";
   private readonly _version = "1.16.0";
   readonly autoAlbumSize = 500;
   readonly autoPlaylistSize = 100;

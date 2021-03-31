@@ -52,16 +52,6 @@ export class PlayerService {
     this._player.ontimeupdate = () => {
       this.currentProgress = this._player.currentTime / this._player.duration;
     }
-    this._player.oncanplaythrough = () => {
-      const index = this.queueService.queueIndex + 1;
-      if (index < this.queueService.queue.length && !this.queueService.queue[index].preloaded) {
-        const audio = new Audio();
-        audio.src = this.queueService.queue[index].songUrl;
-        audio.autoplay = false;
-        audio.load();
-        this.queueService.queue[index].preloaded = true;
-      }
-    }
   }
 
   nextSong = () => {
@@ -77,7 +67,7 @@ export class PlayerService {
   playSong(song: Song | null) {
     if (song) {
       this.currentSong = song;
-      this.titleService.setTitle(`${song.title} - PaskAudio`)
+      this.titleService.setTitle(`${song.title} - RipaskAudio`)
       this._player.src = song.songUrl;
       this._player.play();
     } else {

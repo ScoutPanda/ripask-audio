@@ -1,6 +1,6 @@
-# PaskAudio
+# RipaskAudio
 
-PaskAudio is a self hosted web music player that works by connecting to a subsonic server.
+RipaskAudio is a self hosted web music player that works by connecting to a subsonic server.
 You have to provide the web server yourself, and build the project for use.
 
 I personally use firebase as a web server, astiga as the subsonic server, and pCloud as
@@ -17,10 +17,7 @@ or did not have genre list / allow me to play songs randomly from a specific gen
 ## Caveats
 
 Please understand that this project is, first and foremost, for my own use and as such,
-I have implemented features that I find the most useful. I'm still planning on
-adding artists tab, a search button and, if I manage to make service workers behave
-in a way that does not interfere with the song player, I'd like to use one to cache images
-(and possibly songs).
+I have implemented features that I find the most useful.
 
 ## Closing
 

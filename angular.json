@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "pask-audio": {
+    "ripask-audio": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/pask-audio",
+            "outputPath": "dist/ripask-audio",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -68,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "pask-audio:build"
+            "browserTarget": "ripask-audio:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "pask-audio:build:production"
+              "browserTarget": "ripask-audio:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "pask-audio:build"
+            "browserTarget": "ripask-audio:build"
           }
         },
         "test": {
@@ -116,11 +116,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "pask-audio:serve"
+            "devServerTarget": "ripask-audio:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "pask-audio:serve:production"
+              "devServerTarget": "ripask-audio:serve:production"
             }
           }
         },
@@ -131,5 +131,5 @@
       }
     }
   },
-  "defaultProject": "pask-audio"
+  "defaultProject": "ripask-audio"
 }
