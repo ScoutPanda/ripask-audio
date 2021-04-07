@@ -15,7 +15,7 @@
           </div>
         </div>
       </div>
-      <div class="album-overlay clickable" style="bottom: 50px;" (click)="playRandomByGenre(genre.value)">
+      <div *ngIf="genre.value" class="album-overlay clickable" style="bottom: 50px;" (click)="playRandomByGenre(genre.value)">
         <mat-icon class="play-card" [color]="'primary'">play_arrow</mat-icon>
       </div>
     </div>
