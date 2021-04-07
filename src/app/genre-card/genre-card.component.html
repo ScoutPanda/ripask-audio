@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="card-body">
-      <div class="title" [title]="genre.value">{{genre.value}}</div>
+      <div class="title" [title]="genre.value || 'No genre'">{{genre.value || 'No genre'}}</div>
     </div>
   </ng-container>
 </div>

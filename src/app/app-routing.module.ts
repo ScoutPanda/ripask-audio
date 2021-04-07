@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: "albums", pathMatch: "full", canActivate: [AuthGuardService], component: AlbumsComponent },
   { path: "album/:id", pathMatch: "full", canActivate: [AuthGuardService], component: AlbumComponent },
   { path: "genres", pathMatch: "full", canActivate: [AuthGuardService], component: GenresComponent },
+  { path: "genre", pathMatch: "full", canActivate: [AuthGuardService], component: GenreComponent},
   { path: "genre/:id", pathMatch: "full", canActivate: [AuthGuardService], component: GenreComponent },
   { path: "queue", pathMatch: "full", canActivate: [AuthGuardService], component: QueueComponent },
   { path: "",   redirectTo: "/recents", pathMatch: "full" },

@@ -10,7 +10,7 @@ import {
   ApiGetRandomSongs,
   Song
 } from "./subsonic.model";
-import {map} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 import {GlobalsService} from "../globals.service";
 
 @Injectable({
@@ -43,7 +43,10 @@ export class SubsonicService {
   getGenres(): Observable<ApiGenre[]> {
     const url = this.globals.getUrl("getGenres");
     return this.http.get<ApiGetGenres>(url, {params: this.globals.params})
-      .pipe(map(v => v.genres.genre));
+      .pipe(
+        tap(v => v.genres.genre.push(new ApiGenre())),
+        map(v => v.genres.genre)
+      );
   }
 
   getAlbumAndSongs(album: ApiAlbumSongs): {album: Album, songs: Song[]} {

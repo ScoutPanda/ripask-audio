@@ -18,7 +18,9 @@ export class GenresComponent implements OnInit {
       forkJoin(genres.map(g => this.subsonicService.getAlbumListBy("byGenre", 4, g.value))).subscribe(albums => {
         const tempGenres: Genre[] = [];
         for (let i = 0; i < albums.length; i++) {
-          tempGenres.push(new Genre(genres[i], albums[i]));
+          if (albums[i].length > 0) {
+            tempGenres.push(new Genre(genres[i], albums[i]));
+          }
         }
         this.genres = tempGenres.sort((a, b) => this.compare(a.value, b.value));
       })
