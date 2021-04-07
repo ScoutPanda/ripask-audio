@@ -30,12 +30,15 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', function fetcher (event) {
-  if (event.request.url.indexOf('getCoverArt') > -1) {
+  if (event.request.url.indexOf('getCoverArt') > -1
+    || (event.request.url.indexOf('getAlbumList') > -1 && event.request.url.indexOf('byGenre') > -1)) {
     event.respondWith(
       caches.open(CACHE_NAME).then(function(cache) {
         return cache.match(event.request).then(function (response) {
           return response || fetch(event.request).then(function(response) {
-            cache.put(event.request, response.clone());
+            if (response.ok) {
+              cache.put(event.request, response.clone());
+            }
             return response;
           });
         });

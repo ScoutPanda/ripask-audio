@@ -4,13 +4,13 @@
       <div class="clickable" [routerLink]="'/genre/' + genre.value">
         <div class="split">
           <div class="single-container">
-            <img class="single-img" [src]="genre.coverArtUrls[0]" loading="lazy" alt="" width="300" height="300">
+            <img class="single-img" [src]="genre.coverArtUrls[0]" loading="lazy" alt="" crossorigin="anonymous" width="300" height="300">
           </div>
         </div>
         <div class="split">
           <div class="stacked-container">
             <ng-container *ngFor="let coverArtUrl of genre.coverArtUrls.slice(1); let i = index">
-              <img class="stacked-img" [src]="coverArtUrl" loading="lazy" alt="" width="300" height="300">
+              <img class="stacked-img" [src]="coverArtUrl" loading="lazy" alt="" crossorigin="anonymous" width="300" height="300">
             </ng-container>
           </div>
         </div>

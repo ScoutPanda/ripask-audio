@@ -3,7 +3,7 @@
     <div class="album-box clickable">
       <div class="album">
         <div class="album-container" [routerLink]="'/album/' + album.id">
-          <img class="img-responsive" [src]="album.coverArtUrl" alt="" loading="lazy" [title]="album.album" width="300" height="300">
+          <img class="img-responsive" [src]="album.coverArtUrl" loading="lazy" alt="" crossorigin="anonymous" [title]="album.album" width="300" height="300">
         </div>
         <div class="album-overlay clickable" (click)="playAlbum(album.id)">
           <mat-icon class="play-card" [color]="'primary'">play_arrow</mat-icon>
