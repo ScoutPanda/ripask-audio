@@ -1,8 +1,6 @@
 <div class="mat-elevation-z6" style="position: sticky; width:100%; top: 0; z-index: 100;">
-  <nav mat-tab-nav-bar [backgroundColor]="'primary'">
-    <div style="display: inline-block; margin-left: auto; margin-right: auto;">
-      <a mat-tab-link *ngFor="let link of links" [routerLinkActive]="'active'"
-         [routerLink]="link.path"> {{link.name}} </a>
-    </div>
+  <nav mat-tab-nav-bar [backgroundColor]="'primary'" mat-align-tabs="center">
+    <a mat-tab-link *ngFor="let link of links" [routerLinkActive]="'active'"
+       [routerLink]="link.path"> {{link.name}} </a>
   </nav>
 </div>
