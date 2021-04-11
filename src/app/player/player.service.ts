@@ -139,11 +139,11 @@ export class PlayerService {
     });
   }
 
-  playRandomSongsByArtist(artist: ArtistList) {
+  playRandomSongsByArtist(artist: string) {
     this.subsonicService.getSongsByArtist(artist, 500, 100, true).subscribe(res => this.playSongs(res));
   }
 
-  playArtist(artist: Artist) {
+  playArtist(artist: string) {
     this.subsonicService.getSongsByArtist(artist, 500, 500).subscribe(res => this.playSongs(res));
   }
 }

@@ -27,7 +27,7 @@ export class ArtistComponent implements OnInit {
 
   playArtist() {
     if (this.artist) {
-      this.playerService.playArtist(this.artist);
+      this.playerService.playArtist(this.artist.name);
     }
   }
 }

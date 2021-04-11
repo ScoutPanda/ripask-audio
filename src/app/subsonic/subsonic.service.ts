@@ -77,13 +77,13 @@ export class SubsonicService {
       .pipe(map(v => v.album));
   }
 
-  getSongsByArtist(artist: ArtistList, songCount = 500, maxSize = 100, random = false): Observable<Song[]> {
-    return this.searchBy(artist.name, songCount).pipe(
+  getSongsByArtist(artist: string, songCount = 500, maxSize = 100, random = false): Observable<Song[]> {
+    return this.searchBy(artist, songCount).pipe(
       map(v => {
         if (random) {
           v.song = shuffleArr(v.song);
         }
-        return filterLimit(v.song, s => s.artistId === artist.id, maxSize).map(s => new Song(s, this.getCoverArtUrl(s), this.getSongUrl(s)))
+        return v.song.slice(0, maxSize).map(s => new Song(s, this.getCoverArtUrl(s), this.getSongUrl(s)))
       })
     )
   }

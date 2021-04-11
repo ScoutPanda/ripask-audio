@@ -13,6 +13,6 @@ export class ArtistCardComponent {
   constructor(private playerService: PlayerService) { }
 
   playArtist(artist: ArtistList) {
-    this.playerService.playRandomSongsByArtist(artist);
+    this.playerService.playRandomSongsByArtist(artist.name);
   }
 }
