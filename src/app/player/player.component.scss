@@ -4,7 +4,6 @@
   position: sticky;
   z-index: 10;
   display: inline-flex;
-  min-height: 60px;
   background-color: #fff;
 }
 .slider {
@@ -41,6 +40,10 @@
 }
 
 @media (max-width: 670px) {
+  .player {
+    min-height: 96px;
+  }
+
   .art, .controls-end { display: none; }
 
   .controls-start,
@@ -56,6 +59,10 @@
 }
 
 @media (min-width: 670px) {
+  .player {
+    min-height: 60px;
+  }
+
   .artist-player {
     padding: 0 12px;
   }

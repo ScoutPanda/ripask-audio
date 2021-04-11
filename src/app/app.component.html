@@ -1,9 +1,6 @@
-<div style="height: 100%;
-position: relative;
-overflow-x: hidden;
-overflow-y: hidden;">
+<div class="app-container">
   <app-navbar *ngIf="authenticated"></app-navbar>
-  <div style="height: calc(100% - 140px); overflow: auto;">
+  <div class="main-view">
     <router-outlet></router-outlet>
   </div>
 
