@@ -8,6 +8,8 @@ import {GenreComponent} from "./genre/genre.component";
 import {QueueComponent} from "./queue/queue.component";
 import {AccountComponent} from "./account/account.component";
 import {AuthGuardService} from "./auth/auth-guard.service";
+import {ArtistsComponent} from "./artists/artists.component";
+import {ArtistComponent} from "./artist/artist.component";
 
 const routes: Routes = [
   { path: "account", pathMatch: "full", component: AccountComponent },
@@ -18,6 +20,8 @@ const routes: Routes = [
   { path: "genre", pathMatch: "full", canActivate: [AuthGuardService], component: GenreComponent},
   { path: "genre/:id", pathMatch: "full", canActivate: [AuthGuardService], component: GenreComponent },
   { path: "queue", pathMatch: "full", canActivate: [AuthGuardService], component: QueueComponent },
+  { path: "artists", pathMatch: "full", canActivate: [AuthGuardService], component: ArtistsComponent },
+  { path: "artist/:id", pathMatch: "full", canActivate: [AuthGuardService], component: ArtistComponent },
   { path: "",   redirectTo: "/recents", pathMatch: "full" },
 ];
 

@@ -94,15 +94,19 @@ export class Album {
   id: string = "";
   album: string = "";
   artist: string = "";
+  artistId: string = "";
   year: number = 0;
   coverArtUrl: string = "";
+  songCount: number = 0;
 
   constructor(album: ApiAlbum, coverArtUrl: string) {
     this.id = album.id;
     this.album = album.album;
     this.artist = album.artist;
+    this.artistId = album.artistId;
     this.year = album.year;
     this.coverArtUrl = coverArtUrl;
+    this.songCount = album.songCount;
   }
 }
 
@@ -133,4 +137,67 @@ export class Genre {
       this.coverArtUrls.push(this.coverArtUrls[0]);
     }
   }
+}
+
+export class ApiArtist {
+  id: string = "";
+  name: string = "";
+  coverArt: string = "";
+  albumCount: number = 0;
+  album: ApiAlbum[] = [];
+}
+
+export class Artist {
+  id: string = "";
+  name: string = "";
+  coverArtUrls: string[] = [""];
+  albumCount: number = 0;
+  album: Album[] = [];
+
+  constructor(artist: ApiArtist, album: Album[], coverArtUrls: string[]) {
+    this.id = artist.id;
+    this.name = artist.name;
+    this.coverArtUrls = coverArtUrls;
+    this.albumCount = artist.albumCount;
+    this.album = album;
+  }
+}
+
+export class ApiGetArtist extends ApiBaseResponse {
+  artist: ApiArtist = new ApiArtist();
+}
+
+export class ApiArtistList {
+  id: string = "";
+  name: string = "";
+  coverArt: string = "";
+  songCount: number = 0;
+}
+
+export class ApiGetArtistList extends ApiBaseResponse {
+  artistList: {
+    artist: ApiArtistList[];
+  } = {artist: []};
+}
+
+export class ArtistList {
+  id: string = "";
+  name: string = "";
+  coverArtUrls: string[] = [""];
+
+  constructor(artist: ApiArtistList, coverArtUrls: string[]) {
+    this.id = artist.id;
+    this.name = artist.name;
+    this.coverArtUrls = coverArtUrls;
+  }
+}
+
+export class ApiSearch extends ApiBaseResponse {
+  searchResult2: ApiSearchResult = {song: [], album: [], artist: []};
+}
+
+export class ApiSearchResult {
+  song: ApiSong[] = [];
+  album: ApiAlbum[] = [];
+  artist: ApiArtistList[] = [];
 }

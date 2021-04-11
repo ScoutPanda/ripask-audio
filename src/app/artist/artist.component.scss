@@ -1,0 +1,32 @@
+.artist-container {
+  position: relative;
+  top: -20px;
+  min-width: 250px;
+}
+
+.artist-img-split-container {
+  position: relative;
+  float: left;
+  width: 50%;
+  height: 50%
+}
+
+.artist-img-split {
+  max-width: 100%;
+  height: auto;
+}
+
+.artist-img-single {
+  width: 100%;
+  height: 100%;
+}
+
+.artist-title {
+  font-weight: 500;
+  margin: 0;
+}
+
+.artist-info {
+  font-size: 15px;
+  opacity: 0.8;
+}

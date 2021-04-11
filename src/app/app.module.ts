@@ -28,6 +28,10 @@ import {GenreListComponent} from "./genre-list/genre-list.component";
 import {SongListComponent} from "./song-list/song-list.component";
 import {AccountComponent} from "./account/account.component";
 import {FormsModule} from "@angular/forms";
+import {ArtistsComponent} from "./artists/artists.component";
+import {ArtistListComponent} from "./artist-list/artist-list.component";
+import {ArtistCardComponent} from "./artist-card/artist-card.component";
+import {ArtistComponent} from "./artist/artist.component";
 
 @NgModule({
   declarations: [
@@ -46,7 +50,11 @@ import {FormsModule} from "@angular/forms";
     AlbumListComponent,
     AlbumComponent,
     SongListComponent,
-    AccountComponent
+    AccountComponent,
+    ArtistsComponent,
+    ArtistListComponent,
+    ArtistCardComponent,
+    ArtistComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,19 @@
+<div class="card mat-elevation-z4">
+  <ng-container *ngIf="artist as artist">
+    <div class="artist-box clickable">
+      <div class="artist">
+        <div class="artist-container" [routerLink]="'/artist/' + artist.id">
+          <ng-container *ngFor="let coverArt of artist.coverArtUrls">
+            <img class="img-responsive" [src]="coverArt" loading="lazy" alt="" crossorigin="anonymous" [title]="artist.name" width="300" height="300">
+          </ng-container>
+        </div>
+        <div class="album-overlay clickable" (click)="playArtist(artist)">
+          <mat-icon class="play-card" [color]="'primary'">play_arrow</mat-icon>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="title" [title]="artist.name">{{artist.name}}</div>
+    </div>
+  </ng-container>
+</div>

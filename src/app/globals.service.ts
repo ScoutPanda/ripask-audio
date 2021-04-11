@@ -12,6 +12,7 @@ export class GlobalsService {
   private readonly _app = "ripask-audio";
   private readonly _version = "1.16.0";
   readonly autoAlbumSize = 500;
+  readonly autoArtistSize = 500;
   readonly autoPlaylistSize = 100;
 
   params = new HttpParams();

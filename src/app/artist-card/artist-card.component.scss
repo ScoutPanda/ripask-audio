@@ -1,0 +1,47 @@
+.artist-container {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 100%;
+  border-radius: 3px 3px 0 0;
+}
+.artist-container > img {
+  position: absolute;
+}
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.artist-container > .img-responsive:only-child {
+  width: 100% !important;
+}
+
+.img-responsive:nth-child(1) {
+  width: 50%;
+}
+
+.img-responsive:nth-child(2) {
+  width: 50%;
+  left: 50%;
+}
+
+.img-responsive:nth-child(3) {
+  width: 50%;
+  top: 50%;
+}
+
+.img-responsive:nth-child(4) {
+  width: 50% !important;
+  top: 50%;
+  left: 50%;
+}
+
+.artist-box {
+  box-sizing: border-box;
+  position: relative;
+}
+.artist {
+  padding: 0;
+  height: 100%;
+}

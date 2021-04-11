@@ -117,3 +117,11 @@ p {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.link {
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

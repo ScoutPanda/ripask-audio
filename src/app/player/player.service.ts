@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {SubsonicService} from "../subsonic/subsonic.service";
 import {QueueService} from "../queue/queue.service";
 import {Title} from "@angular/platform-browser";
-import {Song} from "../subsonic/subsonic.model";
+import {Artist, ArtistList, Song} from "../subsonic/subsonic.model";
 import {shuffleArr} from "../helpers";
 
 @Injectable({
@@ -137,5 +137,13 @@ export class PlayerService {
       const songs = this.subsonicService.getAlbumAndSongs(res).songs;
       this.playSongs(songs);
     });
+  }
+
+  playRandomSongsByArtist(artist: ArtistList) {
+    this.subsonicService.getSongsByArtist(artist, 500, 100, true).subscribe(res => this.playSongs(res));
+  }
+
+  playArtist(artist: Artist) {
+    this.subsonicService.getSongsByArtist(artist, 500, 500).subscribe(res => this.playSongs(res));
   }
 }

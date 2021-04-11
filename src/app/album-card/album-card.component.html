@@ -12,7 +12,7 @@
     </div>
     <div class="card-body">
       <div class="title" [title]="album.album">{{album.album}}</div>
-      <div class="title subtitle" [title]="album.artist">{{album.artist}}</div>
+      <div class="title subtitle link" [title]="album.artist" [routerLink]="'/artist/' + album.artistId">{{album.artist}}</div>
     </div>
   </ng-container>
 </div>

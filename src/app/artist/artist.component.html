@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-sm-3 gx-sm-4 g-0 clickable artist-container" (click)="playArtist()">
+      <ng-container *ngIf="artist?.coverArtUrls?.length === 1; else splitImg">
+        <img class="artist-img-single" [src]="artist?.coverArtUrls![0]" loading="lazy" alt="" crossorigin="anonymous" width="300" height="300">
+      </ng-container>
+      <ng-template #splitImg>
+        <div *ngFor="let coverArt of artist?.coverArtUrls" class="artist-img-split-container">
+          <img class="artist-img-split" [src]="coverArt" loading="lazy" alt="" crossorigin="anonymous" width="300" height="300">
+        </div>
+      </ng-template>
+    </div>
+    <div class="col-12 col-sm-5 pl-4 pb-3">
+      <h3 class="artist-title">{{artist?.name}}</h3>
+      <div class="artist-info">
+        <div>{{artist?.albumCount}} albums</div>
+      </div>
+    </div>
+  </div>
+  <app-album-list [albums]="albums"></app-album-list>
+</div>
