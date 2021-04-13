@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {forkJoin, Observable} from "rxjs";
 import {
-  Album, ApiAlbum,
+  Album,
   ApiAlbumSongs, ApiArtist, ApiArtistList, ApiGenre,
   ApiGetAlbum,
   ApiGetAlbumListBy, ApiGetArtist, ApiGetArtistList,
@@ -10,9 +10,9 @@ import {
   ApiGetRandomSongs, ApiMusicDirectory, ApiSearch, ApiSearchResult, ApiSong, Artist, ArtistList,
   Song
 } from "./subsonic.model";
-import {combineLatest, map, mergeMap, tap} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 import {GlobalsService} from "../globals.service";
-import {filterLimit, generateAvatar, shuffleArr} from "../helpers";
+import {filterLimit, generateAvatar} from "../helpers";
 
 @Injectable({
   providedIn: 'root'
