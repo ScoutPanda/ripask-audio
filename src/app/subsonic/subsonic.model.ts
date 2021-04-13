@@ -201,3 +201,13 @@ export class ApiSearchResult {
   album: ApiAlbum[] = [];
   artist: ApiArtistList[] = [];
 }
+
+export class ApiGetMusicDirectory<A> extends ApiBaseResponse {
+  directory: ApiMusicDirectory<A> = {id: "", name: "", child: []}
+}
+
+export class ApiMusicDirectory<A> {
+  id: string = "";
+  name: string = "";
+  child: A[] = [];
+}

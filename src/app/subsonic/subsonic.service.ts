@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {forkJoin, Observable} from "rxjs";
 import {
-  Album,
+  Album, ApiAlbum,
   ApiAlbumSongs, ApiArtist, ApiArtistList, ApiGenre,
   ApiGetAlbum,
   ApiGetAlbumListBy, ApiGetArtist, ApiGetArtistList,
-  ApiGetGenres,
-  ApiGetRandomSongs, ApiSearch, ApiSearchResult, Artist, ArtistList,
+  ApiGetGenres, ApiGetMusicDirectory,
+  ApiGetRandomSongs, ApiMusicDirectory, ApiSearch, ApiSearchResult, ApiSong, Artist, ArtistList,
   Song
 } from "./subsonic.model";
-import {map, tap} from "rxjs/operators";
+import {combineLatest, map, mergeMap, tap} from "rxjs/operators";
 import {GlobalsService} from "../globals.service";
 import {filterLimit, generateAvatar, shuffleArr} from "../helpers";
 
@@ -77,15 +77,17 @@ export class SubsonicService {
       .pipe(map(v => v.album));
   }
 
-  getSongsByArtist(artist: string, songCount = 500, maxSize = 100, random = false): Observable<Song[]> {
-    return this.searchBy(artist, songCount).pipe(
-      map(v => {
-        if (random) {
-          v.song = shuffleArr(v.song);
-        }
-        return v.song.slice(0, maxSize).map(s => new Song(s, this.getCoverArtUrl(s), this.getSongUrl(s)))
-      })
+  getSongsByArtist(id: string): Observable<Song[]> {
+    return this.getMusicDirectory<ApiSong>(id).pipe(
+      map(v => filterLimit(v.child, c => !c.isDir, this.globals.autoPlaylistSize).map(c => new Song(c, this.getCoverArtUrl(c), this.getSongUrl(c))))
     )
+  }
+
+  getMusicDirectory<A>(id: string): Observable<ApiMusicDirectory<A>> {
+    const url = this.globals.getUrl("getMusicDirectory");
+    let params = this.globals.params.append("id", id);
+    return this.http.get<ApiGetMusicDirectory<A>>(url, {params: params})
+      .pipe(map(v => v.directory));
   }
 
   searchBy(query: string, songCount: number): Observable<ApiSearchResult> {
