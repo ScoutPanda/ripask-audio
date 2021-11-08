@@ -2,8 +2,14 @@ import { Injectable } from '@angular/core';
 import {SubsonicService} from "../subsonic/subsonic.service";
 import {QueueService} from "../queue/queue.service";
 import {Title} from "@angular/platform-browser";
-import {Artist, ArtistList, Song} from "../subsonic/subsonic.model";
+import {Song} from "../subsonic/subsonic.model";
 import {shuffleArr} from "../helpers";
+
+export enum Repeat {
+  None = "0",
+  All = "1",
+  One = "2"
+}
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +21,7 @@ export class PlayerService {
   currentSong: Song | null = null;
   currentProgress = 0;
   private shuffle = false;
-  private repeat = false;
+  private repeat = Repeat.None;
   private volume = 0.5;
 
   get playerVolume(): number {
@@ -47,16 +53,21 @@ export class PlayerService {
       }
     }
     this.shuffle = (localStorage.getItem("shuffle") === "true") || this.shuffle;
-    this.repeat = (localStorage.getItem("repeat") === "true") || this.repeat;
+    this.repeat = this.initRepeat();
     this._player.volume = this.volume;
     this._player.ontimeupdate = () => {
       this.currentProgress = this._player.currentTime / this._player.duration;
     }
   }
 
+  initRepeat(): Repeat {
+    const repeat = localStorage.getItem("repeat") || this.repeat;
+    return (Object.values(Repeat) as string[]).includes(repeat) ? repeat as Repeat : this.repeat;
+  }
+
   nextSong = () => {
-    const song = this.queueService.getNextSongFromQueue();
-    if (!song && this.repeat) {
+    const song = this.repeat === Repeat.One ? this.currentSong : this.queueService.getNextSongFromQueue();
+    if (!song && this.repeat === Repeat.All) {
       this.queueService.queueIndex = 0;
       this.playSong(this.queueService.queue[0]);
     } else {
@@ -112,12 +123,18 @@ export class PlayerService {
     localStorage.setItem("shuffle", this.shuffle.toString())
   }
 
-  getRepeat(): boolean {
+  getRepeat(): Repeat {
     return this.repeat;
   }
 
   toggleRepeat() {
-    this.repeat = !this.repeat;
+    if (this.repeat === Repeat.None) {
+      this.repeat = Repeat.All;
+    } else if (this.repeat === Repeat.All) {
+      this.repeat = Repeat.One;
+    } else {
+      this.repeat = Repeat.None;
+    }
     localStorage.setItem("repeat", this.repeat.toString());
   }
 

@@ -20,7 +20,10 @@
         <mat-icon [class.highlight]="shuffle">shuffle</mat-icon>
       </button>
       <button mat-icon-button (click)="playerService.toggleRepeat()">
-        <mat-icon [class.highlight]="repeat">loop</mat-icon>
+        <mat-icon *ngIf="repeat === Repeat.One; else repeatdefault" class="highlight">repeat_one</mat-icon>
+        <ng-template #repeatdefault>
+          <mat-icon [class.highlight]="repeat === Repeat.All">repeat</mat-icon>
+        </ng-template>
       </button>
       <button mat-icon-button (click)="playerService.previousSong()" [disabled]="!playerService.songLoaded()">
         <mat-icon>skip_previous</mat-icon>

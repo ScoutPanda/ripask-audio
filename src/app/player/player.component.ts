@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-import {PlayerService} from "./player.service";
+import {PlayerService, Repeat} from "./player.service";
 
 @Component({
   selector: 'app-player',
@@ -9,11 +9,13 @@ import {PlayerService} from "./player.service";
   encapsulation: ViewEncapsulation.None
 })
 export class PlayerComponent {
+  Repeat = Repeat;
+
   get shuffle(): boolean {
     return this.playerService.getShuffle();
   }
 
-  get repeat(): boolean {
+  get repeat(): Repeat {
     return this.playerService.getRepeat();
   }
 
