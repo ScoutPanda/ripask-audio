@@ -15,11 +15,12 @@ export enum Repeat {
   providedIn: 'root'
 })
 export class PlayerService {
-  // @ts-ignore
-  private _player: HTMLAudioElement;
+  private _player!: HTMLAudioElement;
 
   currentSong: Song | null = null;
   currentProgress = 0;
+  private currentSongTimePlayed = 0;
+  private previousPlayerTime = 0;
   private shuffle = false;
   private repeat = Repeat.None;
   private volume = 0.5;
@@ -57,6 +58,10 @@ export class PlayerService {
     this._player.volume = this.volume;
     this._player.ontimeupdate = () => {
       this.currentProgress = this._player.currentTime / this._player.duration;
+      if (this._player.currentTime > this.previousPlayerTime) {
+        this.currentSongTimePlayed += this._player.currentTime - this.previousPlayerTime;
+      }
+      this.previousPlayerTime = this._player.currentTime;
     }
   }
 
@@ -67,23 +72,42 @@ export class PlayerService {
 
   nextSong = () => {
     const song = this.repeat === Repeat.One ? this.currentSong : this.queueService.getNextSongFromQueue();
-    if (!song && this.repeat === Repeat.All) {
+    if (song) {
+      this.playSong(song);
+    } else if (this.repeat === Repeat.All) {
       this.queueService.queueIndex = 0;
       this.playSong(this.queueService.queue[0]);
     } else {
-      this.playSong(song);
+      this._player.pause();
+      this._player.currentTime = (this._player.duration - 0.1);
+      this.doScrobble();
     }
   }
 
-  playSong(song: Song | null) {
+  previousSong() {
+    const song = this.queueService.getPrevSongFromQueue();
     if (song) {
-      this.currentSong = song;
-      this.titleService.setTitle(`${song.title} - RipaskAudio`)
-      this._player.src = song.songUrl;
-      this._player.play();
+      this.playSong(song);
     } else {
       this._player.pause();
+      this._player.currentTime = 0;
+      this.doScrobble();
     }
+  }
+
+  playSong(song: Song) {
+    this.doScrobble();
+    this.currentSong = song;
+    this.titleService.setTitle(`${song.title} - RipaskAudio`)
+    this._player.src = song.songUrl;
+    this._player.play();
+  }
+
+  private doScrobble(): void {
+    if (this.currentSong && this.currentSongTimePlayed > (this.currentSong.duration / 1.3)) {
+      this.subsonicService.scrobble(this.currentSong).subscribe((_) => {});
+    }
+    this.currentSongTimePlayed = 0;
   }
 
   playSongInQueue(song: Song) {
@@ -101,10 +125,6 @@ export class PlayerService {
 
   playRandomSongs(genre: string = "") {
     this.subsonicService.getRandomSongs(genre).subscribe(res => this.playSongs(res));
-  }
-
-  previousSong() {
-    this.playSong(this.queueService.getPrevSongFromQueue());
   }
 
   togglePaused() {
@@ -140,6 +160,7 @@ export class PlayerService {
 
   setCurrentTime(val: number) {
     this._player.currentTime = val * this._player.duration;
+    this.previousPlayerTime = this._player.currentTime;
     if (this._player.paused) {
       this._player.play();
     }

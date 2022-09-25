@@ -103,6 +103,12 @@ export class SubsonicService {
       .pipe(map(v => v.searchResult2));
   }
 
+  scrobble({id}: {id: string}): Observable<void> {
+    const url = this.globals.getUrl("scrobble");
+    let params = this.globals.params.append("id", id);
+    return this.http.get<void>(url, {params: params});
+  }
+
   private getSongUrl({id}: {id: string}): string {
     return id ? `${this.globals.getUrl("stream")}?${this.globals.params.append("id", id)}` : "";
   }
