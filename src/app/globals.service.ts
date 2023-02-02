@@ -14,7 +14,7 @@ export class GlobalsService {
   params = new HttpParams();
   private readonly _type = "json";
   private readonly _app = "ripask-audio";
-  private readonly _version = "1.16.0";
+  private readonly _version = "1.16.1";
 
   constructor(private http: HttpClient) {
     this._user = localStorage.getItem("user") || "";

@@ -66,7 +66,7 @@ export class ApiGetRandomSongs extends ApiBaseResponse {
 }
 
 export class ApiGetAlbumListBy extends ApiBaseResponse {
-  albumList: {
+  albumList2: {
     album: ApiAlbum[];
   } = {album: []};
 }
@@ -171,13 +171,19 @@ export class ApiArtistList {
   id = "";
   name = "";
   coverArt = "";
-  songCount = 0;
+  albumCount = 0;
 }
 
 export class ApiGetArtistList extends ApiBaseResponse {
-  artistList: {
-    artist: ApiArtistList[];
-  } = {artist: []};
+  ignoredArticles = "";
+  artists: {
+    index: ApiGetArtistListIndexItem[];
+  } = {index: []};
+}
+
+export class ApiGetArtistListIndexItem {
+  name = "";
+  artist: ApiArtistList[] = [];
 }
 
 export class ArtistList {

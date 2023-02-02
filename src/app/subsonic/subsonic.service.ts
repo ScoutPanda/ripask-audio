@@ -10,7 +10,7 @@ import {
   ApiGetAlbum,
   ApiGetAlbumListBy,
   ApiGetArtist,
-  ApiGetArtistList,
+  ApiGetArtistList, ApiGetArtistListIndexItem,
   ApiGetGenres,
   ApiGetMusicDirectory,
   ApiGetRandomSongs,
@@ -20,7 +20,7 @@ import {
   ArtistList,
   Song
 } from "./subsonic.model";
-import {map, tap} from "rxjs/operators";
+import {map} from "rxjs/operators";
 import {GlobalsService} from "../globals.service";
 import {filterLimit, generateAvatar} from "../helpers";
 
@@ -32,24 +32,26 @@ export class SubsonicService {
   }
 
   getAlbumListBy(type: string, size = 0, genre = ""): Observable<Album[]> {
-    const url = this.globals.getUrl("getAlbumList");
+    const url = this.globals.getUrl("getAlbumList2");
     let params = this.globals.params.append("type", type);
     params = params.append("size", !size ? this.globals.autoAlbumSize.toString() : size.toString());
     if (genre) {
       params = params.append("genre", genre);
     }
     return this.http.get<ApiGetAlbumListBy>(url, {params: params})
-      .pipe(map(v => v.albumList.album.map(a => new Album(a, this.getCoverArtUrl(a)))));
+      .pipe(map(v => v.albumList2.album.map(a => new Album(a, this.getCoverArtUrl(a)))));
   }
 
   getArtistList(): Observable<ArtistList[]> {
-    const url = this.globals.getUrl("getArtistList");
+    const url = this.globals.getUrl("getArtists");
     let params = this.globals.params.append("type", "alphabeticalByName");
     params = params.append("size", this.globals.autoArtistSize.toString());
-    const artist = this.http.get<ApiGetArtistList>(url, {params: params});
+    const artist = this.http.get<ApiGetArtistList>(url, {params: params}).pipe(map(res => {
+      return res.artists.index.reduce((prev: ApiArtistList[], cur: ApiGetArtistListIndexItem) => [...prev, ...cur.artist], [])
+    }));
     const albums = this.getAlbumListBy("alphabeticalByName");
     return forkJoin([artist, albums])
-      .pipe(map(res => res[0].artistList.artist.map(a => new ArtistList(a, this.getArtistListCoverArtUrl(a, res[1])))))
+      .pipe(map(res => res[0].map((a: any) => new ArtistList(a, this.getArtistListCoverArtUrl(a, res[1])))))
   }
 
   getArtist(id: string): Observable<Artist> {
@@ -72,10 +74,7 @@ export class SubsonicService {
   getGenres(): Observable<ApiGenre[]> {
     const url = this.globals.getUrl("getGenres");
     return this.http.get<ApiGetGenres>(url, {params: this.globals.params})
-      .pipe(
-        tap(v => v.genres.genre.push(new ApiGenre())),
-        map(v => v.genres.genre)
-      );
+      .pipe(map(v => v.genres.genre));
   }
 
   getAlbumAndSongs(album: ApiAlbumSongs): { album: Album, songs: Song[] } {
