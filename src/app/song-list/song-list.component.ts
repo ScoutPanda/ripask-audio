@@ -28,7 +28,7 @@ export class SongListComponent implements OnInit {
     }
   }
 
-  play(song: Song) {
+  play(song: Song): void {
     if (this.queue) {
       this.playerService.playSongInQueue(song);
     } else {

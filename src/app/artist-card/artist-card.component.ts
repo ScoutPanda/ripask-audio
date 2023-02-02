@@ -12,7 +12,7 @@ export class ArtistCardComponent {
 
   constructor(private playerService: PlayerService) { }
 
-  playArtist(artist: ArtistList) {
+  playArtist(artist: ArtistList): void {
     this.playerService.playArtist(artist.id);
   }
 }

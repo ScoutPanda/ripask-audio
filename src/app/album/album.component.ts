@@ -31,7 +31,7 @@ export class AlbumComponent implements OnInit {
     });
   }
 
-  playSongs() {
+  playSongs(): void {
     this.playerService.playSongs(this.songs);
   }
 }

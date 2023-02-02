@@ -12,7 +12,7 @@ export class GenreCardComponent {
 
   constructor(private playerService: PlayerService) { }
 
-  playRandomByGenre(genre: string) {
+  playRandomByGenre(genre: string): void {
     this.playerService.playRandomSongs(genre);
   }
 }

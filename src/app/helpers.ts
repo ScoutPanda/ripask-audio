@@ -15,8 +15,8 @@ export function secondsToString(seconds: number, format: "long" | "short" = "lon
   }
 }
 
-export function toHex(str: string){
-  return unescape(encodeURIComponent(str))
+export function toHex(str: string): string {
+  return decodeURIComponent(encodeURIComponent(str))
     .split("").map(function(v){
       return v.charCodeAt(0).toString(16)
     }).join("")
@@ -26,7 +26,7 @@ export function filterLimit<A>(array: A[], condition: (a: A) => boolean, maxSize
   return [...fl(array, condition, maxSize)];
 }
 
-function *fl<A>(array: A[], condition: (a: A) => boolean, maxSize: number) {
+function *fl<A>(array: A[], condition: (a: A) => boolean, maxSize: number):  Generator<A> {
   if (!maxSize || maxSize > array.length) {
     maxSize = array.length;
   }
@@ -41,7 +41,7 @@ function *fl<A>(array: A[], condition: (a: A) => boolean, maxSize: number) {
   }
 }
 
-export function generateAvatar(text: string) {
+export function generateAvatar(text: string): string {
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
   const color = materialColors[getRandomInt(0, materialColors.length)];
@@ -65,7 +65,7 @@ export function generateAvatar(text: string) {
   return canvas.toDataURL("image/png");
 }
 
-function getNameInitials(name: string) {
+function getNameInitials(name: string): string {
   const a = name.split(" ");
   if (a.length == 2) {
     return `${a[0][0]}${a[1][0]}`;
@@ -74,7 +74,7 @@ function getNameInitials(name: string) {
   }
 }
 
-function getRandomInt(min: number, max: number) {
+function getRandomInt(min: number, max: number): number {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min);

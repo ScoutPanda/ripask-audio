@@ -12,7 +12,7 @@ export class AlbumCardComponent {
 
   constructor(private playerService: PlayerService) { }
 
-  playAlbum(id: string) {
+  playAlbum(id: string): void {
     this.playerService.playAlbum(id);
   }
 }

@@ -27,11 +27,11 @@ export class PlayerComponent {
     return this.playerService.songLoaded() ? this.playerService.currentSong?.coverArtUrl || "" : "";
   }
 
-  setCurrentTime(value: number) {
+  setCurrentTime(value: number): void {
     this.playerService.setCurrentTime(value);
   }
 
-  onInputChange({value}: {value: number | null}) {
+  onInputChange({value}: {value: number | null}): void {
     if (value !== null) {
       this.playerService.playerVolume = value;
     }
@@ -51,7 +51,7 @@ export class PlayerComponent {
     }
   }
 
-  playRandomSongs() {
+  playRandomSongs(): void {
     this.playerService.playRandomSongs();
   }
 }

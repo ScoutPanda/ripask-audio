@@ -27,5 +27,5 @@ export class GenresComponent implements OnInit {
     })
   }
 
-  compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+  compare = (v1: string | number, v2: string | number): number => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 }

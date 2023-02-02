@@ -30,14 +30,14 @@ const activeEventOptions = normalizePassiveListenerOptions({passive: false});
 })
 export class PlayerSliderComponent implements OnDestroy {
   @HostListener("focus")
-  onFocus() {
+  onFocus(): void {
     // We save the dimensions of the slider here, so we can use them to update the spacing of the
     // ticks and determine where on the slider click and slide events happen.
     this._sliderDimensions = this._getSliderDimensions();
   }
 
   @HostListener("mouseenter")
-  onMouseenter() {
+  onMouseenter(): void {
     if (this.disabled) {
       return;
     }
@@ -56,10 +56,10 @@ export class PlayerSliderComponent implements OnDestroy {
   hostClasses = true;
 
   @HostBinding("class.mat-slider-disabled")
-  get sliderDisabled() { return this.disabled; }
+  get sliderDisabled(): boolean { return this.disabled; }
 
   @HostBinding("class.mat-slider-sliding")
-  get sliderSliding() { return this._isSliding; }
+  get sliderSliding(): boolean { return this._isSliding; }
 
   max = 1;
   min = 0;
@@ -87,7 +87,7 @@ export class PlayerSliderComponent implements OnDestroy {
   @Output() readonly sliderChange: EventEmitter<number> = new EventEmitter<number>();
 
   /** set focus to the host element */
-  focus(options?: FocusOptions) {
+  focus(options?: FocusOptions): void {
     this._focusHostElement(options);
   }
 
@@ -145,7 +145,7 @@ export class PlayerSliderComponent implements OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     const element = this._elementRef.nativeElement;
     element.removeEventListener("mousedown", this._pointerDown, activeEventOptions);
     element.removeEventListener("touchstart", this._pointerDown, activeEventOptions);
@@ -154,7 +154,7 @@ export class PlayerSliderComponent implements OnDestroy {
   }
 
   /** Called when the user has put their pointer down on the slider. */
-  private _pointerDown = (event: TouchEvent | MouseEvent) => {
+  private _pointerDown = (event: TouchEvent | MouseEvent): void => {
     // Don't do anything if the slider is disabled or the
     // user is using anything other than the main mouse button.
     if (this.disabled || this._isSliding || (!isTouchEvent(event) && event.button !== 0)) {
@@ -185,7 +185,7 @@ export class PlayerSliderComponent implements OnDestroy {
    * Called when the user has moved their pointer after
    * starting to drag. Bound on the document level.
    */
-  private _pointerMove = (event: TouchEvent | MouseEvent) => {
+  private _pointerMove = (event: TouchEvent | MouseEvent): void => {
     if (this._isSliding) {
       // Prevent the slide from selecting anything else.
       event.preventDefault();
@@ -201,7 +201,7 @@ export class PlayerSliderComponent implements OnDestroy {
   }
 
   /** Called when the user has lifted their pointer. Bound on the document level. */
-  private _pointerUp = (event: TouchEvent | MouseEvent) => {
+  private _pointerUp = (event: TouchEvent | MouseEvent): void => {
     if (this._isSliding) {
       event.preventDefault();
       this._removeGlobalEvents();
@@ -212,7 +212,7 @@ export class PlayerSliderComponent implements OnDestroy {
   }
 
   /** Called when the window has lost focus. */
-  private _windowBlur = () => {
+  private _windowBlur = (): void => {
     // If the window is blurred while dragging we need to stop dragging because the
     // browser won't dispatch the `mouseup` and `touchend` events anymore.
     if (this._lastPointerEvent) {
@@ -230,7 +230,7 @@ export class PlayerSliderComponent implements OnDestroy {
    * dragging so that the user doesn't have to keep their pointer exactly over the slider
    * as they're swiping across the screen.
    */
-  private _bindGlobalEvents(triggerEvent: TouchEvent | MouseEvent) {
+  private _bindGlobalEvents(triggerEvent: TouchEvent | MouseEvent): void {
     // Note that we bind the events to the `document`, because it allows us to capture
     // drag cancel events where the user's pointer is outside the browser window.
     const document = this._document;
@@ -252,7 +252,7 @@ export class PlayerSliderComponent implements OnDestroy {
   }
 
   /** Removes any global event listeners that we may have added. */
-  private _removeGlobalEvents() {
+  private _removeGlobalEvents(): void {
     const document = this._document;
     document.removeEventListener("mousemove", this._pointerMove, activeEventOptions);
     document.removeEventListener("mouseup", this._pointerUp, activeEventOptions);
@@ -268,7 +268,7 @@ export class PlayerSliderComponent implements OnDestroy {
   }
 
   /** Calculate the new value from the new physical location. The value will always be snapped. */
-  private _updateValueFromPosition(pos: {x: number, y: number}) {
+  private _updateValueFromPosition(pos: {x: number, y: number}): void {
     if (!this._sliderDimensions) {
       return;
     }
@@ -301,22 +301,22 @@ export class PlayerSliderComponent implements OnDestroy {
   }
 
   /** Emits an input event when the current value is different from the last emitted value. */
-  private _emitInputEvent() {
+  private _emitInputEvent(): void {
     this.sliderChange.emit(this.value);
   }
 
   /** Calculates the percentage of the slider that a value is. */
-  private _calculatePercentage(value: number | null) {
+  private _calculatePercentage(value: number | null): number {
     return ((value || 0) - this.min) / (this.max - this.min);
   }
 
   /** Calculates the value a percentage of the slider corresponds to. */
-  private _calculateValue(percentage: number) {
+  private _calculateValue(percentage: number): number {
     return this.min + percentage * (this.max - this.min);
   }
 
   /** Return a number between two numbers. */
-  private _clamp(value: number, min = 0, max = 1) {
+  private _clamp(value: number, min = 0, max = 1): number {
     return Math.max(min, Math.min(value, max));
   }
 
@@ -325,7 +325,7 @@ export class PlayerSliderComponent implements OnDestroy {
    * The track is used rather than the native element to ignore the extra space that the thumb can
    * take up.
    */
-  private _getSliderDimensions() {
+  private _getSliderDimensions(): DOMRect | null  {
     return this._sliderWrapper ? this._sliderWrapper.nativeElement.getBoundingClientRect() : null;
   }
 
@@ -333,7 +333,7 @@ export class PlayerSliderComponent implements OnDestroy {
    * Focuses the native element.
    * Currently only used to allow a blur event to fire but will be used with keyboard input later.
    */
-  private _focusHostElement(options?: FocusOptions) {
+  private _focusHostElement(options?: FocusOptions): void {
     this._elementRef.nativeElement.focus(options);
   }
 }
@@ -347,7 +347,7 @@ function isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
 }
 
 /** Gets the coordinates of a touch or mouse event relative to the viewport. */
-function getPointerPositionOnPage(event: MouseEvent | TouchEvent) {
+function getPointerPositionOnPage(event: MouseEvent | TouchEvent): { x: number, y: number } {
   // `touches` will be empty for start/end events, so we have to fall back to `changedTouches`.
   const point = isTouchEvent(event) ? (event.touches[0] || event.changedTouches[0]) : event;
   return {x: point.clientX, y: point.clientY};
