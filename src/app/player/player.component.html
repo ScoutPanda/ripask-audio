@@ -1,6 +1,6 @@
 <div style="width: 100%;">
   <div class="slider">
-    <app-player-slider class="progress-slider" [value]="playerService.currentProgress" (input)="setCurrentTime($event)" [disabled]="!playerService.songLoaded()"></app-player-slider>
+    <app-player-slider class="progress-slider" [value]="playerService.currentProgress" (sliderChange)="setCurrentTime($event)" [disabled]="!playerService.songLoaded()"></app-player-slider>
   </div>
   <div class="controls">
     <div class="controls-start">

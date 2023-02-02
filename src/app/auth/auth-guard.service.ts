@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {Router, CanActivate} from '@angular/router';
+import { Injectable } from "@angular/core";
+import {Router, CanActivate} from "@angular/router";
 import {GlobalsService} from "../globals.service";
 import {Observable} from "rxjs";
 import {tap} from "rxjs/operators";
@@ -16,7 +16,7 @@ export class AuthGuardService implements CanActivate {
     } else {
       return this.globals.isAuthenticated().pipe(tap(v => {
         if (!v) {
-          this.router.navigate(["account"]);
+          this.router.navigate(["account"]).then();
         }
       }));
     }

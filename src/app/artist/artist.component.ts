@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {SubsonicService} from "../subsonic/subsonic.service";
 import {Album, Artist} from "../subsonic/subsonic.model";
 import {ActivatedRoute} from "@angular/router";
 import {PlayerService} from "../player/player.service";
 
 @Component({
-  selector: 'app-artist',
-  templateUrl: './artist.component.html',
-  styleUrls: ['./artist.component.scss']
+  selector: "app-artist",
+  templateUrl: "./artist.component.html",
+  styleUrls: ["./artist.component.scss"]
 })
 export class ArtistComponent implements OnInit {
   artist: Artist | undefined;

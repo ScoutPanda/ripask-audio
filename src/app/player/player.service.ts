@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {SubsonicService} from "../subsonic/subsonic.service";
 import {QueueService} from "../queue/queue.service";
 import {Title} from "@angular/platform-browser";
@@ -12,7 +12,7 @@ export enum Repeat {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class PlayerService {
   private _player!: HTMLAudioElement;
@@ -100,12 +100,12 @@ export class PlayerService {
     this.currentSong = song;
     this.titleService.setTitle(`${song.title} - RipaskAudio`)
     this._player.src = song.songUrl;
-    this._player.play();
+    this._player.play().then();
   }
 
   private doScrobble(): void {
     if (this.currentSong && this.currentSongTimePlayed > (this.currentSong.duration / 1.3)) {
-      this.subsonicService.scrobble(this.currentSong).subscribe((_) => {});
+      this.subsonicService.scrobble(this.currentSong).subscribe();
     }
     this.currentSongTimePlayed = 0;
   }
@@ -123,7 +123,7 @@ export class PlayerService {
     this.playSong(firstSong);
   }
 
-  playRandomSongs(genre: string = "") {
+  playRandomSongs(genre = "") {
     this.subsonicService.getRandomSongs(genre).subscribe(res => this.playSongs(res));
   }
 
@@ -162,7 +162,7 @@ export class PlayerService {
     this._player.currentTime = val * this._player.duration;
     this.previousPlayerTime = this._player.currentTime;
     if (this._player.paused) {
-      this._player.play();
+      this._player.play().then();
     }
   }
 

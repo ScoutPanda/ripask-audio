@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {toHex} from "./helpers";
 import {Observable, of} from "rxjs";
 import {map, tap} from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class GlobalsService {
   private readonly _type = "json";
@@ -60,13 +60,13 @@ export class GlobalsService {
     return `${baseurl ? baseurl : this.baseurl}/rest/${view}.view`;
   }
 
-  private ping(user: string, password: string, baseurl: string): Observable<any> {
+  private ping(user: string, password: string, baseurl: string): Observable<boolean> {
     const params = this.createDefaultParams(user, password);
-    return this.http.get<any>(this.getUrl("ping", baseurl), {params: params})
+    return this.http.get<{status: string}>(this.getUrl("ping", baseurl), {params: params})
       .pipe(
         map(v => v && v.status === "ok"),
         tap(v => {
-          this._authenticated = !!v;
+          this._authenticated = v;
           this._user = user;
           this._password = password;
           this._baseurl = baseurl;
@@ -74,7 +74,8 @@ export class GlobalsService {
           localStorage.setItem("password", this.password);
           localStorage.setItem("baseurl", this.baseurl);
           this.params = this.createDefaultParams(this.user, this.password);
-        }));
+        })
+      );
   }
 
   private createDefaultParams(user: string, password: string): HttpParams {

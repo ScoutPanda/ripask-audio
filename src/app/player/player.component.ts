@@ -1,14 +1,15 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, ViewEncapsulation} from "@angular/core";
 import {PlayerService, Repeat} from "./player.service";
 
 @Component({
-  selector: 'app-player',
-  templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss'],
-  host: {"class": "player"},
+  selector: "app-player",
+  templateUrl: "./player.component.html",
+  styleUrls: ["./player.component.scss"],
   encapsulation: ViewEncapsulation.None
 })
 export class PlayerComponent {
+  @HostBinding("class.player") player = true;
+
   Repeat = Repeat;
 
   get shuffle(): boolean {
@@ -29,7 +30,6 @@ export class PlayerComponent {
   setCurrentTime(value: number) {
     this.playerService.setCurrentTime(value);
   }
-
 
   onInputChange({value}: {value: number | null}) {
     if (value !== null) {

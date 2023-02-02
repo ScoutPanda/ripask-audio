@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {SubsonicService} from "../subsonic/subsonic.service";
 import {Genre} from "../subsonic/subsonic.model";
 import {forkJoin} from "rxjs";
 
 @Component({
-  selector: 'app-genres',
-  templateUrl: './genres.component.html',
-  styleUrls: ['./genres.component.scss']
+  selector: "app-genres",
+  templateUrl: "./genres.component.html",
+  styleUrls: ["./genres.component.scss"]
 })
 export class GenresComponent implements OnInit {
   genres: Genre[] = [];

@@ -1,49 +1,49 @@
 import {secondsToString} from "../helpers";
 
 class ApiBaseResponse {
-  status: string = "";
-  version: string = "";
+  status = "";
+  version = "";
   error?: ApiSubsonicError
 }
 
 class ApiSubsonicError {
-  code: number = 0;
-  message: string = "";
+  code = 0;
+  message = "";
 }
 
 export class ApiSong {
-  id: string = "";
-  parent: string = "";
-  title: string = "";
-  artist: string = "";
-  artistId: string = "";
-  album: string = "";
-  albumId: string = "";
-  genre: string = "";
-  coverArt: string = "";
-  size: string = "";
-  contentType: string = "";
-  suffix: string = "";
-  duration: number = 0;
-  path: string = "";
-  type: string = "";
-  isDir: boolean = false;
-  bitRate: number = 0;
-  created: string = "";
-  year: number = 0;
-  track: number = 0;
+  id = "";
+  parent = "";
+  title = "";
+  artist = "";
+  artistId = "";
+  album = "";
+  albumId = "";
+  genre = "";
+  coverArt = "";
+  size = "";
+  contentType = "";
+  suffix = "";
+  duration = 0;
+  path = "";
+  type = "";
+  isDir = false;
+  bitRate = 0;
+  created = "";
+  year = 0;
+  track = 0;
 }
 
 export class Song {
-  id: string = "";
-  songUrl: string = "";
-  title: string = "";
-  artist: string = "";
-  coverArtUrl: string = "";
-  duration: number = 0;
-  length: string = "";
-  album: string = "";
-  track: number = 0;
+  id = "";
+  songUrl = "";
+  title = "";
+  artist = "";
+  coverArtUrl = "";
+  duration = 0;
+  length = "";
+  album = "";
+  track = 0;
   preloaded = false;
 
   constructor(song: ApiSong, coverArtUrl: string, songUrl: string) {
@@ -76,28 +76,28 @@ export class ApiGetAlbum extends ApiBaseResponse {
 }
 
 export class ApiAlbum {
-  id: string = "";
-  parent: string = "";
-  title: string = "";
-  album: string = "";
-  artist: string = "";
-  artistId: string = "";
-  isDir: boolean = false;
-  duration: number = 0;
-  songCount: number = 0;
-  coverArt: string = "";
-  created: string = "";
-  year: number = 0;
+  id = "";
+  parent = "";
+  title = "";
+  album = "";
+  artist = "";
+  artistId = "";
+  isDir = false;
+  duration = 0;
+  songCount = 0;
+  coverArt = "";
+  created = "";
+  year = 0;
 }
 
 export class Album {
-  id: string = "";
-  album: string = "";
-  artist: string = "";
-  artistId: string = "";
-  year: number = 0;
-  coverArtUrl: string = "";
-  songCount: number = 0;
+  id = "";
+  album = "";
+  artist = "";
+  artistId = "";
+  year = 0;
+  coverArtUrl = "";
+  songCount = 0;
 
   constructor(album: ApiAlbum, coverArtUrl: string) {
     this.id = album.id;
@@ -121,13 +121,13 @@ export class ApiGetGenres extends ApiBaseResponse {
 }
 
 export class ApiGenre {
-  songCount: string = "";
-  albumCount: string = "";
-  value: string = "";
+  songCount = "";
+  albumCount = "";
+  value = "";
 }
 
 export class Genre {
-  value: string = "";
+  value = "";
   coverArtUrls: string[];
 
   constructor(genre: ApiGenre, albums: Album[]) {
@@ -140,18 +140,18 @@ export class Genre {
 }
 
 export class ApiArtist {
-  id: string = "";
-  name: string = "";
-  coverArt: string = "";
-  albumCount: number = 0;
+  id = "";
+  name = "";
+  coverArt = "";
+  albumCount = 0;
   album: ApiAlbum[] = [];
 }
 
 export class Artist {
-  id: string = "";
-  name: string = "";
+  id = "";
+  name = "";
   coverArtUrls: string[] = [""];
-  albumCount: number = 0;
+  albumCount = 0;
   album: Album[] = [];
 
   constructor(artist: ApiArtist, album: Album[], coverArtUrls: string[]) {
@@ -168,10 +168,10 @@ export class ApiGetArtist extends ApiBaseResponse {
 }
 
 export class ApiArtistList {
-  id: string = "";
-  name: string = "";
-  coverArt: string = "";
-  songCount: number = 0;
+  id = "";
+  name = "";
+  coverArt = "";
+  songCount = 0;
 }
 
 export class ApiGetArtistList extends ApiBaseResponse {
@@ -181,8 +181,8 @@ export class ApiGetArtistList extends ApiBaseResponse {
 }
 
 export class ArtistList {
-  id: string = "";
-  name: string = "";
+  id = "";
+  name = "";
   coverArtUrls: string[] = [""];
 
   constructor(artist: ApiArtistList, coverArtUrls: string[]) {
@@ -192,22 +192,12 @@ export class ArtistList {
   }
 }
 
-export class ApiSearch extends ApiBaseResponse {
-  searchResult2: ApiSearchResult = {song: [], album: [], artist: []};
-}
-
-export class ApiSearchResult {
-  song: ApiSong[] = [];
-  album: ApiAlbum[] = [];
-  artist: ApiArtistList[] = [];
-}
-
 export class ApiGetMusicDirectory<A> extends ApiBaseResponse {
   directory: ApiMusicDirectory<A> = {id: "", name: "", child: []}
 }
 
 export class ApiMusicDirectory<A> {
-  id: string = "";
-  name: string = "";
+  id = "";
+  name = "";
   child: A[] = [];
 }

@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 import {RecentsComponent} from "./recents/recents.component";
 import {AlbumsComponent} from "./albums/albums.component";
 import {GenresComponent} from "./genres/genres.component";

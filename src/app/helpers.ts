@@ -1,4 +1,4 @@
-export function shuffleArr(arr: any[]): any[] {
+export function shuffleArr<T>(arr: T[]): T[] {
   const temp = [...arr];
   for (let i = temp.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -17,9 +17,9 @@ export function secondsToString(seconds: number, format: "long" | "short" = "lon
 
 export function toHex(str: string){
   return unescape(encodeURIComponent(str))
-    .split('').map(function(v){
+    .split("").map(function(v){
       return v.charCodeAt(0).toString(16)
-    }).join('')
+    }).join("")
 }
 
 export function filterLimit<A>(array: A[], condition: (a: A) => boolean, maxSize: number): A[] {

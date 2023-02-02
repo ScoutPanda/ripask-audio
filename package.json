@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build"
+    "build": "ng build",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -27,8 +28,16 @@
   "devDependencies": {
     "@angular-devkit/architect": "0.1501.4",
     "@angular-devkit/build-angular": "15.1.4",
+    "@angular-eslint/builder": "15.2.0",
+    "@angular-eslint/eslint-plugin": "15.2.0",
+    "@angular-eslint/eslint-plugin-template": "15.2.0",
+    "@angular-eslint/schematics": "15.2.0",
+    "@angular-eslint/template-parser": "15.2.0",
     "@angular/cli": "15.1.4",
     "@angular/compiler-cli": "15.1.2",
+    "@typescript-eslint/eslint-plugin": "5.48.1",
+    "@typescript-eslint/parser": "5.48.1",
+    "eslint": "^8.31.0",
     "typescript": "4.9.5"
   }
 }

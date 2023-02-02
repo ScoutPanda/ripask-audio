@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {SubsonicService} from "../subsonic/subsonic.service";
 import {Album, Song} from "../subsonic/subsonic.model";
 import {ActivatedRoute} from "@angular/router";
@@ -6,9 +6,9 @@ import {secondsToString} from "../helpers";
 import {PlayerService} from "../player/player.service";
 
 @Component({
-  selector: 'app-album',
-  templateUrl: './album.component.html',
-  styleUrls: ['./album.component.scss']
+  selector: "app-album",
+  templateUrl: "./album.component.html",
+  styleUrls: ["./album.component.scss"]
 })
 export class AlbumComponent implements OnInit {
   album: Album | undefined;
@@ -33,9 +33,5 @@ export class AlbumComponent implements OnInit {
 
   playSongs() {
     this.playerService.playSongs(this.songs);
-  }
-
-  playSong(song: Song) {
-    this.playerService.playSong(song);
   }
 }

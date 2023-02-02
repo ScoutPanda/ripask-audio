@@ -1,12 +1,12 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { AppRoutingModule } from './app-routing.module';
-import {AppComponent} from './app.component';
+import { AppRoutingModule } from "./app-routing.module";
+import {AppComponent} from "./app.component";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TransformInterceptor} from "./interceptor/transform.interceptor";
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {MatLegacyTabsModule as MatTabsModule} from '@angular/material/legacy-tabs';
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import {MatLegacyTabsModule as MatTabsModule} from "@angular/material/legacy-tabs";
 import {PlayerComponent} from "./player/player.component";
 import {MatIconModule} from "@angular/material/icon";
 import {MatLegacySliderModule as MatSliderModule} from "@angular/material/legacy-slider";

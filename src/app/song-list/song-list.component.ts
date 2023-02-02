@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from "@angular/core";
 import {SubsonicService} from "../subsonic/subsonic.service";
 import {PlayerService} from "../player/player.service";
 import {Song} from "../subsonic/subsonic.model";
@@ -6,9 +6,9 @@ import {QueueService} from "../queue/queue.service";
 import {shuffleArr} from "../helpers";
 
 @Component({
-  selector: 'app-song-list',
-  templateUrl: './song-list.component.html',
-  styleUrls: ['./song-list.component.scss']
+  selector: "app-song-list",
+  templateUrl: "./song-list.component.html",
+  styleUrls: ["./song-list.component.scss"]
 })
 export class SongListComponent implements OnInit {
   @Input() songs: Song[] = [];

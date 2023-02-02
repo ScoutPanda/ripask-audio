@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {Song} from "../subsonic/subsonic.model";
 import {shuffleArr} from "../helpers";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class QueueService {
   queue: Song[] = [];

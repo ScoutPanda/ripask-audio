@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {SubsonicService} from "../subsonic/subsonic.service";
 import {ArtistList} from "../subsonic/subsonic.model";
-import {forkJoin} from "rxjs";
 
 @Component({
-  selector: 'app-artists',
-  templateUrl: './artists.component.html',
-  styleUrls: ['./artists.component.scss']
+  selector: "app-artists",
+  templateUrl: "./artists.component.html",
+  styleUrls: ["./artists.component.scss"]
 })
 export class ArtistsComponent implements OnInit {
   artists: ArtistList[] = [];
