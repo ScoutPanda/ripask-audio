@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
 import {Song} from "../subsonic/subsonic.model";
 import {shuffleArr} from "../helpers";
 

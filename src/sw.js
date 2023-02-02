@@ -1,22 +1,22 @@
-const CACHE_NAME = 'ripask-cache-v1';
+const CACHE_NAME = "ripask-cache-v1";
 const urlsToCache = [
-  'index.html',
-  'assets/no-image.png'
+  "index.html",
+  "assets/no-image.png"
 ];
 
 
-self.addEventListener('install', function(event) {
+self.addEventListener("install", function (event) {
   // Perform install steps
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(function(cache) {
+      .then(function (cache) {
         return cache.addAll(urlsToCache);
       })
   );
 });
 
 
-self.addEventListener('activate', event => {
+self.addEventListener("activate", event => {
   const currentCaches = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then(cacheNames => {
@@ -29,15 +29,15 @@ self.addEventListener('activate', event => {
   );
 });
 
-self.addEventListener('fetch', function fetcher (event) {
-  if (event.request.url.indexOf('getCoverArt') > -1
-    || (event.request.url.indexOf('getAlbumList') > -1 && event.request.url.indexOf('byGenre') > -1)) {
+self.addEventListener("fetch", function fetcher(event) {
+  if (event.request.url.indexOf("getCoverArt") > -1
+    || (event.request.url.indexOf("getAlbumList") > -1 && event.request.url.indexOf("byGenre") > -1)) {
     event.respondWith(
-      caches.open(CACHE_NAME).then(function(cache) {
+      caches.open(CACHE_NAME).then(function (cache) {
         return cache.match(event.request).then(function (response) {
-          return response || fetch(event.request).then(function(response) {
+          return response || fetch(event.request).then(function (response) {
             if (response.ok) {
-              cache.put(event.request, response.clone());
+              cache.put(event.request, response.clone()).then();
             }
             return response;
           });

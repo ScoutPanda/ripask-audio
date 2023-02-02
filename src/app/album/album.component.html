@@ -1,7 +1,8 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 col-sm-3 gx-sm-4 g-0 clickable album-img-container" (click)="playSongs()">
-      <img class="album-img" [src]="album?.coverArtUrl" alt="" crossorigin="anonymous" [title]="album?.album" width="300" height="300">
+    <div (click)="playSongs()" class="col-12 col-sm-3 gx-sm-4 g-0 clickable album-img-container">
+      <img [src]="album?.coverArtUrl" [title]="album?.album" alt="" class="album-img" crossorigin="anonymous"
+           height="300" width="300">
     </div>
     <div class="col-12 col-sm-5 pl-4 pb-3">
       <h3 class="album-title">{{album?.album}}</h3>
@@ -13,5 +14,5 @@
       </div>
     </div>
   </div>
-  <app-song-list [songs]="songs" [hideAlbum]="true"></app-song-list>
+  <app-song-list [hideAlbum]="true" [songs]="songs"></app-song-list>
 </div>

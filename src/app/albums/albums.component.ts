@@ -10,7 +10,8 @@ import {Album} from "../subsonic/subsonic.model";
 export class AlbumsComponent implements OnInit {
   albums: Album[] = [];
 
-  constructor(private subsonicService: SubsonicService) { }
+  constructor(private subsonicService: SubsonicService) {
+  }
 
   ngOnInit(): void {
     this.subsonicService.getAlbumListBy("alphabeticalByName").subscribe(res => {

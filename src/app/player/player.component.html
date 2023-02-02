@@ -1,6 +1,8 @@
 <div style="width: 100%;">
   <div class="slider">
-    <app-player-slider class="progress-slider" [value]="playerService.currentProgress" (sliderChange)="setCurrentTime($event)" [disabled]="!playerService.songLoaded()"></app-player-slider>
+    <app-player-slider (sliderChange)="setCurrentTime($event)" [disabled]="!playerService.songLoaded()"
+                       [value]="playerService.currentProgress"
+                       class="progress-slider"></app-player-slider>
   </div>
   <div class="controls">
     <div class="controls-start">
@@ -8,43 +10,46 @@
         <img [src]="coverArtUrl()" alt="" crossorigin="anonymous" height="60" width="60">
       </div>
       <div class="info">
-        <div class="title-player title" [title]="playerService.currentSong?.title">{{playerService.currentSong?.title}}</div>
-        <div class="artist-player title subtitle" [title]="playerService.currentSong?.artist">{{playerService.currentSong?.artist}}</div>
+        <div [title]="playerService.currentSong?.title"
+             class="title-player title">{{playerService.currentSong?.title}}</div>
+        <div [title]="playerService.currentSong?.artist"
+             class="artist-player title subtitle">{{playerService.currentSong?.artist}}</div>
       </div>
     </div>
     <div class="controls-middle">
-      <button mat-icon-button (click)="playRandomSongs()">
+      <button (click)="playRandomSongs()" mat-icon-button>
         <mat-icon>music_note</mat-icon>
       </button>
-      <button mat-icon-button (click)="playerService.toggleShuffle()">
+      <button (click)="playerService.toggleShuffle()" mat-icon-button>
         <mat-icon [class.highlight]="shuffle">shuffle</mat-icon>
       </button>
-      <button mat-icon-button (click)="playerService.toggleRepeat()">
+      <button (click)="playerService.toggleRepeat()" mat-icon-button>
         <mat-icon *ngIf="repeat === Repeat.One; else repeatdefault" class="highlight">repeat_one</mat-icon>
         <ng-template #repeatdefault>
           <mat-icon [class.highlight]="repeat === Repeat.All">repeat</mat-icon>
         </ng-template>
       </button>
-      <button mat-icon-button (click)="playerService.previousSong()" [disabled]="!playerService.songLoaded()">
+      <button (click)="playerService.previousSong()" [disabled]="!playerService.songLoaded()" mat-icon-button>
         <mat-icon>skip_previous</mat-icon>
       </button>
-      <button mat-icon-button (click)="playerService.togglePaused()" [disabled]="!playerService.songLoaded()">
-        <mat-icon class="primary-play-btn" [color]="'primary'" [inline]="true">{{getPlayIcon()}}</mat-icon>
+      <button (click)="playerService.togglePaused()" [disabled]="!playerService.songLoaded()" mat-icon-button>
+        <mat-icon [color]="'primary'" [inline]="true" class="primary-play-btn">{{getPlayIcon()}}</mat-icon>
       </button>
-      <button mat-icon-button (click)="playerService.nextSong()" [disabled]="!playerService.songLoaded()">
+      <button (click)="playerService.nextSong()" [disabled]="!playerService.songLoaded()" mat-icon-button>
         <mat-icon>skip_next</mat-icon>
       </button>
-      <button mat-icon-button [matMenuTriggerFor]="menu">
+      <button [matMenuTriggerFor]="menu" mat-icon-button>
         <mat-icon>{{getVolumeIcon()}}</mat-icon>
       </button>
-      <button mat-icon-button [routerLink]="'/queue'">
+      <button [routerLink]="'/queue'" mat-icon-button>
         <mat-icon>queue_music</mat-icon>
       </button>
-      <button mat-icon-button [routerLink]="'/account'">
+      <button [routerLink]="'/account'" mat-icon-button>
         <mat-icon>account_circle</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <mat-slider [value]="playerService.playerVolume" [color]="'primary'" (input)="onInputChange($event)" max="1" min="0" [step]="0.05" vertical="true"></mat-slider>
+        <mat-slider (input)="onInputChange($event)" [color]="'primary'" [step]="0.05" [value]="playerService.playerVolume"
+                    max="1" min="0" vertical="true"></mat-slider>
       </mat-menu>
     </div>
     <div class="controls-end"></div>

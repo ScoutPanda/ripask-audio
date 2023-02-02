@@ -4,13 +4,15 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  HostBinding,
+  HostListener,
   Inject,
   Input,
+  NgZone,
   OnDestroy,
   Output,
   ViewChild,
-  ViewEncapsulation,
-  NgZone, HostBinding, HostListener
+  ViewEncapsulation
 } from "@angular/core";
 import {normalizePassiveListenerOptions} from "@angular/cdk/platform";
 import {DOCUMENT} from "@angular/common";
@@ -29,6 +31,81 @@ const activeEventOptions = normalizePassiveListenerOptions({passive: false});
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayerSliderComponent implements OnDestroy {
+  @HostBinding("attr.role") slider = "slider";
+  @HostBinding("class._mat-animation-noopable")
+  @HostBinding("class.mat-slider-horizontal")
+  @HostBinding("class.mat-focus-indicator")
+  @HostBinding("class.mat-slider")
+  hostClasses = true;
+  max = 1;
+  min = 0;
+  step = 0.0001;
+  @Input() disabled = false;
+  /** Event emitted when the slider thumb moves. */
+  @Output() readonly sliderChange: EventEmitter<number> = new EventEmitter<number>();
+  /**
+   * Whether the thumb is sliding.
+   * Used to determine if there should be a transition for the thumb and fill track.
+   */
+  _isSliding = false;
+  /** Used to subscribe to global move and end events */
+  protected _document: Document;
+  /** The dimensions of the slider. */
+  private _sliderDimensions: DOMRect | null = null;
+  /** The value of the slider when the slide start event fires. */
+  private _valueOnSlideStart: number | null = null;
+  /** Reference to the inner slider wrapper element. */
+  @ViewChild("sliderWrapper") private _sliderWrapper: ElementRef | undefined;
+  /** Keeps track of the last pointer event that was captured by the slider. */
+  private _lastPointerEvent: MouseEvent | TouchEvent | null = null;
+
+  constructor(private _elementRef: ElementRef,
+              private _changeDetectorRef: ChangeDetectorRef,
+              private _ngZone: NgZone,
+              @Inject(DOCUMENT) _document: Document) {
+    this._document = _document;
+
+    _ngZone.runOutsideAngular(() => {
+      const element = _elementRef.nativeElement;
+      element.addEventListener("mousedown", this._pointerDown, activeEventOptions);
+      element.addEventListener("touchstart", this._pointerDown, activeEventOptions);
+    });
+  }
+
+  @HostBinding("class.mat-slider-disabled")
+  get sliderDisabled(): boolean {
+    return this.disabled;
+  }
+
+  @HostBinding("class.mat-slider-sliding")
+  get sliderSliding(): boolean {
+    return this._isSliding;
+  }
+
+  private _value = 0;
+
+  @Input()
+  get value(): number {
+    return this._value;
+  }
+
+  set value(v: number) {
+    if (v !== this._value) {
+      this._value = v;
+      this._percent = this._calculatePercentage(this._value);
+
+      // Since this also modifies the percentage, we need to let the change detection know.
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+
+  private _percent = 0;
+
+  /** The percentage of the slider that coincides with the value. */
+  get percent(): number {
+    return this._clamp(this._percent);
+  }
+
   @HostListener("focus")
   onFocus(): void {
     // We save the dimensions of the slider here, so we can use them to update the spacing of the
@@ -47,59 +124,10 @@ export class PlayerSliderComponent implements OnDestroy {
     this._sliderDimensions = this._getSliderDimensions();
   }
 
-  @HostBinding("attr.role") slider = "slider";
-
-  @HostBinding("class._mat-animation-noopable")
-  @HostBinding("class.mat-slider-horizontal")
-  @HostBinding("class.mat-focus-indicator")
-  @HostBinding("class.mat-slider")
-  hostClasses = true;
-
-  @HostBinding("class.mat-slider-disabled")
-  get sliderDisabled(): boolean { return this.disabled; }
-
-  @HostBinding("class.mat-slider-sliding")
-  get sliderSliding(): boolean { return this._isSliding; }
-
-  max = 1;
-  min = 0;
-  step = 0.0001;
-
-  @Input() disabled = false;
-
-  @Input()
-  get value(): number {
-    return this._value;
-  }
-
-  set value(v: number) {
-    if (v !== this._value) {
-      this._value = v;
-      this._percent = this._calculatePercentage(this._value);
-
-      // Since this also modifies the percentage, we need to let the change detection know.
-      this._changeDetectorRef.markForCheck();
-    }
-  }
-  private _value = 0;
-
-  /** Event emitted when the slider thumb moves. */
-  @Output() readonly sliderChange: EventEmitter<number> = new EventEmitter<number>();
-
   /** set focus to the host element */
   focus(options?: FocusOptions): void {
     this._focusHostElement(options);
   }
-
-  /** The percentage of the slider that coincides with the value. */
-  get percent(): number { return this._clamp(this._percent); }
-  private _percent = 0;
-
-  /**
-   * Whether the thumb is sliding.
-   * Used to determine if there should be a transition for the thumb and fill track.
-   */
-  _isSliding = false;
 
   /** CSS styles for the track background element. */
   _getTrackBackgroundStyles(): { [key: string]: string } {
@@ -115,34 +143,6 @@ export class PlayerSliderComponent implements OnDestroy {
       // scale3d avoids some rendering issues in Chrome. See #12071.
       transform: `translateX(0) scale3d(${this.percent}, 1, 1)`
     };
-  }
-
-  /** The dimensions of the slider. */
-  private _sliderDimensions: DOMRect | null = null;
-
-  /** The value of the slider when the slide start event fires. */
-  private _valueOnSlideStart: number | null = null;
-
-  /** Reference to the inner slider wrapper element. */
-  @ViewChild("sliderWrapper") private _sliderWrapper: ElementRef | undefined;
-
-  /** Keeps track of the last pointer event that was captured by the slider. */
-  private _lastPointerEvent: MouseEvent | TouchEvent | null = null;
-
-  /** Used to subscribe to global move and end events */
-  protected _document: Document;
-
-  constructor(private _elementRef: ElementRef,
-              private _changeDetectorRef: ChangeDetectorRef,
-              private _ngZone: NgZone,
-              @Inject(DOCUMENT) _document: Document) {
-    this._document = _document;
-
-    _ngZone.runOutsideAngular(() => {
-      const element = _elementRef.nativeElement;
-      element.addEventListener("mousedown", this._pointerDown, activeEventOptions);
-      element.addEventListener("touchstart", this._pointerDown, activeEventOptions);
-    });
   }
 
   ngOnDestroy(): void {
@@ -268,7 +268,7 @@ export class PlayerSliderComponent implements OnDestroy {
   }
 
   /** Calculate the new value from the new physical location. The value will always be snapped. */
-  private _updateValueFromPosition(pos: {x: number, y: number}): void {
+  private _updateValueFromPosition(pos: { x: number, y: number }): void {
     if (!this._sliderDimensions) {
       return;
     }
@@ -325,7 +325,7 @@ export class PlayerSliderComponent implements OnDestroy {
    * The track is used rather than the native element to ignore the extra space that the thumb can
    * take up.
    */
-  private _getSliderDimensions(): DOMRect | null  {
+  private _getSliderDimensions(): DOMRect | null {
     return this._sliderWrapper ? this._sliderWrapper.nativeElement.getBoundingClientRect() : null;
   }
 

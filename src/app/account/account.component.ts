@@ -12,7 +12,8 @@ export class AccountComponent implements OnInit {
   password = "";
   server = "";
 
-  constructor(private globals: GlobalsService, private router: Router) { }
+  constructor(private globals: GlobalsService, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.username = this.globals.user;

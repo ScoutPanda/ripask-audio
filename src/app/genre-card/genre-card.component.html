@@ -1,26 +1,29 @@
 <div class="card mat-elevation-z4">
   <ng-container *ngIf="genre as genre">
     <div>
-      <div class="clickable" [routerLink]="'/genre/' + genre.value">
+      <div [routerLink]="'/genre/' + genre.value" class="clickable">
         <div class="split">
           <div class="single-container">
-            <img class="single-img" [src]="genre.coverArtUrls[0]" loading="lazy" alt="" crossorigin="anonymous" width="300" height="300">
+            <img [src]="genre.coverArtUrls[0]" alt="" class="single-img" crossorigin="anonymous" height="300"
+                 loading="lazy" width="300">
           </div>
         </div>
         <div class="split">
           <div class="stacked-container">
             <ng-container *ngFor="let coverArtUrl of genre.coverArtUrls.slice(1); let i = index">
-              <img class="stacked-img" [src]="coverArtUrl" loading="lazy" alt="" crossorigin="anonymous" width="300" height="300">
+              <img [src]="coverArtUrl" alt="" class="stacked-img" crossorigin="anonymous" height="300" loading="lazy"
+                   width="300">
             </ng-container>
           </div>
         </div>
       </div>
-      <div *ngIf="genre.value" class="album-overlay clickable" style="bottom: 50px;" (click)="playRandomByGenre(genre.value)">
-        <mat-icon class="play-card" [color]="'primary'">play_arrow</mat-icon>
+      <div (click)="playRandomByGenre(genre.value)" *ngIf="genre.value" class="album-overlay clickable"
+           style="bottom: 50px;">
+        <mat-icon [color]="'primary'" class="play-card">play_arrow</mat-icon>
       </div>
     </div>
     <div class="card-body">
-      <div class="title" [title]="genre.value || 'No genre'">{{genre.value || 'No genre'}}</div>
+      <div [title]="genre.value || 'No genre'" class="title">{{genre.value || 'No genre'}}</div>
     </div>
   </ng-container>
 </div>

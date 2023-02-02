@@ -18,7 +18,8 @@ export class AlbumComponent implements OnInit {
 
   constructor(private subsonicService: SubsonicService,
               private playerService: PlayerService,
-              private router: ActivatedRoute) {}
+              private router: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     const id = this.router.snapshot.paramMap.get("id") as string;
@@ -27,7 +28,7 @@ export class AlbumComponent implements OnInit {
       this.album = album;
       this.songs = songs;
       this.songCount = songs.length;
-      this.duration = secondsToString(songs.reduce((a, b) =>  a + b.duration, 0));
+      this.duration = secondsToString(songs.reduce((a, b) => a + b.duration, 0));
     });
   }
 

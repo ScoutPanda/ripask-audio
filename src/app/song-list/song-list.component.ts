@@ -20,7 +20,8 @@ export class SongListComponent implements OnInit {
     private subsonicService: SubsonicService,
     public playerService: PlayerService,
     private queueService: QueueService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     if (!this.hideAlbum) {

@@ -10,7 +10,8 @@ import {ArtistList} from "../subsonic/subsonic.model";
 export class ArtistsComponent implements OnInit {
   artists: ArtistList[] = [];
 
-  constructor(private subsonicService: SubsonicService) { }
+  constructor(private subsonicService: SubsonicService) {
+  }
 
   ngOnInit(): void {
     this.subsonicService.getArtistList().subscribe(res => this.artists = res);

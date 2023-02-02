@@ -4,19 +4,23 @@
   padding-bottom: 100%;
   border-radius: 3px 3px 0 0;
 }
+
 .album-container > img {
   position: absolute;
   width: 100%;
 }
+
 .img-responsive {
   display: block;
   max-width: 100%;
   height: auto;
 }
+
 .album-box {
   box-sizing: border-box;
   position: relative;
 }
+
 .album {
   padding: 0;
   height: 100%;

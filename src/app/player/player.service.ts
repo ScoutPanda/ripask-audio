@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
 import {SubsonicService} from "../subsonic/subsonic.service";
 import {QueueService} from "../queue/queue.service";
 import {Title} from "@angular/platform-browser";
@@ -15,15 +15,19 @@ export enum Repeat {
   providedIn: "root"
 })
 export class PlayerService {
-  private _player!: HTMLAudioElement;
-
   currentSong: Song | null = null;
   currentProgress = 0;
+  private _player!: HTMLAudioElement;
   private currentSongTimePlayed = 0;
   private previousPlayerTime = 0;
   private shuffle = false;
   private repeat = Repeat.None;
   private volume = 0.5;
+
+  constructor(private subsonicService: SubsonicService,
+              private queueService: QueueService,
+              private titleService: Title) {
+  }
 
   get playerVolume(): number {
     return this._player.volume;
@@ -37,10 +41,6 @@ export class PlayerService {
   get paused(): boolean {
     return this._player.paused;
   }
-
-  constructor(private subsonicService: SubsonicService,
-              private queueService: QueueService,
-              private titleService: Title) {}
 
   setPlayer(p: HTMLAudioElement): void {
     this._player = p;
@@ -101,13 +101,6 @@ export class PlayerService {
     this.titleService.setTitle(`${song.title} - RipaskAudio`)
     this._player.src = song.songUrl;
     this._player.play().then();
-  }
-
-  private doScrobble(): void {
-    if (this.currentSong && this.currentSongTimePlayed > (this.currentSong.duration / 1.3)) {
-      this.subsonicService.scrobble(this.currentSong).subscribe();
-    }
-    this.currentSongTimePlayed = 0;
   }
 
   playSongInQueue(song: Song): void {
@@ -179,5 +172,12 @@ export class PlayerService {
 
   playArtist(id: string): void {
     this.subsonicService.getSongsByArtist(id).subscribe(res => this.playSongs(res));
+  }
+
+  private doScrobble(): void {
+    if (this.currentSong && this.currentSongTimePlayed > (this.currentSong.duration / 1.3)) {
+      this.subsonicService.scrobble(this.currentSong).subscribe();
+    }
+    this.currentSongTimePlayed = 0;
   }
 }

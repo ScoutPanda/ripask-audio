@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {toHex} from "./helpers";
 import {Observable, of} from "rxjs";
@@ -8,37 +8,42 @@ import {map, tap} from "rxjs/operators";
   providedIn: "root"
 })
 export class GlobalsService {
-  private readonly _type = "json";
-  private readonly _app = "ripask-audio";
-  private readonly _version = "1.16.0";
   readonly autoAlbumSize = 500;
   readonly autoArtistSize = 500;
   readonly autoPlaylistSize = 100;
-
   params = new HttpParams();
-
-  private _authenticated = false;
-  get authenticated(): boolean {
-    return this._authenticated;
-  }
-  private _user = "";
-  get user(): string {
-    return this._user;
-  }
-  private _password = "";
-  get password(): string {
-    return this._password;
-  }
-
-  private _baseurl = "";
-  get baseurl(): string {
-    return this._baseurl;
-  }
+  private readonly _type = "json";
+  private readonly _app = "ripask-audio";
+  private readonly _version = "1.16.0";
 
   constructor(private http: HttpClient) {
     this._user = localStorage.getItem("user") || "";
     this._password = localStorage.getItem("password") || "";
     this._baseurl = localStorage.getItem("baseurl") || "";
+  }
+
+  private _authenticated = false;
+
+  get authenticated(): boolean {
+    return this._authenticated;
+  }
+
+  private _user = "";
+
+  get user(): string {
+    return this._user;
+  }
+
+  private _password = "";
+
+  get password(): string {
+    return this._password;
+  }
+
+  private _baseurl = "";
+
+  get baseurl(): string {
+    return this._baseurl;
   }
 
   isAuthenticated(): Observable<boolean> {
@@ -62,7 +67,7 @@ export class GlobalsService {
 
   private ping(user: string, password: string, baseurl: string): Observable<boolean> {
     const params = this.createDefaultParams(user, password);
-    return this.http.get<{status: string}>(this.getUrl("ping", baseurl), {params: params})
+    return this.http.get<{ status: string }>(this.getUrl("ping", baseurl), {params: params})
       .pipe(
         map(v => v && v.status === "ok"),
         tap(v => {

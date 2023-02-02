@@ -15,7 +15,8 @@ export class ArtistComponent implements OnInit {
 
   constructor(private subsonicService: SubsonicService,
               private playerService: PlayerService,
-              private router: ActivatedRoute) {}
+              private router: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     const id = this.router.snapshot.paramMap.get("id") as string;

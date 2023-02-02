@@ -1,12 +1,14 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 col-sm-3 gx-sm-4 g-0 clickable artist-container" (click)="playArtist()">
+    <div (click)="playArtist()" class="col-12 col-sm-3 gx-sm-4 g-0 clickable artist-container">
       <ng-container *ngIf="artist?.coverArtUrls?.length === 1; else splitImg">
-        <img class="artist-img-single" [src]="artist?.coverArtUrls![0]" loading="lazy" alt="" crossorigin="anonymous" width="300" height="300">
+        <img [src]="artist?.coverArtUrls![0]" alt="" class="artist-img-single" crossorigin="anonymous" height="300"
+             loading="lazy" width="300">
       </ng-container>
       <ng-template #splitImg>
         <div *ngFor="let coverArt of artist?.coverArtUrls" class="artist-img-split-container">
-          <img class="artist-img-split" [src]="coverArt" loading="lazy" alt="" crossorigin="anonymous" width="300" height="300">
+          <img [src]="coverArt" alt="" class="artist-img-split" crossorigin="anonymous" height="300" loading="lazy"
+               width="300">
         </div>
       </ng-template>
     </div>

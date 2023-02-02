@@ -17,7 +17,7 @@ export function secondsToString(seconds: number, format: "long" | "short" = "lon
 
 export function toHex(str: string): string {
   return decodeURIComponent(encodeURIComponent(str))
-    .split("").map(function(v){
+    .split("").map(function (v) {
       return v.charCodeAt(0).toString(16)
     }).join("")
 }
@@ -26,13 +26,13 @@ export function filterLimit<A>(array: A[], condition: (a: A) => boolean, maxSize
   return [...fl(array, condition, maxSize)];
 }
 
-function *fl<A>(array: A[], condition: (a: A) => boolean, maxSize: number):  Generator<A> {
+function* fl<A>(array: A[], condition: (a: A) => boolean, maxSize: number): Generator<A> {
   if (!maxSize || maxSize > array.length) {
     maxSize = array.length;
   }
   let count = 0;
   let i = 0;
-  while ( count < maxSize && i < array.length ) {
+  while (count < maxSize && i < array.length) {
     if (condition(array[i])) {
       yield array[i];
       count++;

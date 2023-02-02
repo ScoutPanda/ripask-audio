@@ -15,7 +15,7 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "quotes": ["error", "double"],
+        "quotes": ["error", "double", { "allowTemplateLiterals": true }],
         "@typescript-eslint/explicit-function-return-type": "error",
         "@angular-eslint/directive-selector": [
           "error",

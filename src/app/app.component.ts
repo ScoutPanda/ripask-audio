@@ -11,11 +11,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild("player") player_elem: ElementRef | undefined;
   loaded = false;
 
+  constructor(private playerService: PlayerService, private globals: GlobalsService) {
+  }
+
   get authenticated(): boolean {
     return this.globals.authenticated;
   }
-
-  constructor(private playerService: PlayerService, private globals: GlobalsService) { }
 
   ngAfterViewInit(): void {
     if (this.player_elem) {

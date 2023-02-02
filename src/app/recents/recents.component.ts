@@ -10,7 +10,8 @@ import {Album} from "../subsonic/subsonic.model";
 export class RecentsComponent implements OnInit {
   recents: Album[] = [];
 
-  constructor(private subsonicService: SubsonicService) { }
+  constructor(private subsonicService: SubsonicService) {
+  }
 
   ngOnInit(): void {
     this.subsonicService.getAlbumListBy("recent", 40).subscribe(res => {

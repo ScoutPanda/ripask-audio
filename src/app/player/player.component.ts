@@ -12,15 +12,15 @@ export class PlayerComponent {
 
   Repeat = Repeat;
 
+  constructor(public playerService: PlayerService) {
+  }
+
   get shuffle(): boolean {
     return this.playerService.getShuffle();
   }
 
   get repeat(): Repeat {
     return this.playerService.getRepeat();
-  }
-
-  constructor(public playerService: PlayerService) {
   }
 
   coverArtUrl(): string {
@@ -31,7 +31,7 @@ export class PlayerComponent {
     this.playerService.setCurrentTime(value);
   }
 
-  onInputChange({value}: {value: number | null}): void {
+  onInputChange({value}: { value: number | null }): void {
     if (value !== null) {
       this.playerService.playerVolume = value;
     }

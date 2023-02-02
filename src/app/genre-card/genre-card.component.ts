@@ -10,7 +10,8 @@ import {PlayerService} from "../player/player.service";
 export class GenreCardComponent {
   @Input() genre: Genre | null = null;
 
-  constructor(private playerService: PlayerService) { }
+  constructor(private playerService: PlayerService) {
+  }
 
   playRandomByGenre(genre: string): void {
     this.playerService.playRandomSongs(genre);

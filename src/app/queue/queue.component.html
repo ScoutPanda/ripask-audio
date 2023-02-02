@@ -1,7 +1,7 @@
 <div class="container">
   <h3>Queue</h3>
   <ng-container *ngIf="queue && queue.length > 0; else empty">
-    <app-song-list [songs]="queue" [queue]="true"></app-song-list>
+    <app-song-list [queue]="true" [songs]="queue"></app-song-list>
   </ng-container>
   <ng-template #empty>
     <div>Queue is empty</div>

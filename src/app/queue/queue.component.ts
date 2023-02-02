@@ -8,9 +8,10 @@ import {QueueService} from "./queue.service";
   styleUrls: ["./queue.component.scss"]
 })
 export class QueueComponent {
+  constructor(private queueService: QueueService) {
+  }
+
   get queue(): Song[] {
     return this.queueService.queue;
   }
-
-  constructor(private queueService: QueueService) { }
 }

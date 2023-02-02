@@ -1,13 +1,23 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {forkJoin, Observable} from "rxjs";
 import {
   Album,
-  ApiAlbumSongs, ApiArtist, ApiArtistList, ApiGenre,
+  ApiAlbumSongs,
+  ApiArtist,
+  ApiArtistList,
+  ApiGenre,
   ApiGetAlbum,
-  ApiGetAlbumListBy, ApiGetArtist, ApiGetArtistList,
-  ApiGetGenres, ApiGetMusicDirectory,
-  ApiGetRandomSongs, ApiMusicDirectory, ApiSong, Artist, ArtistList,
+  ApiGetAlbumListBy,
+  ApiGetArtist,
+  ApiGetArtistList,
+  ApiGetGenres,
+  ApiGetMusicDirectory,
+  ApiGetRandomSongs,
+  ApiMusicDirectory,
+  ApiSong,
+  Artist,
+  ArtistList,
   Song
 } from "./subsonic.model";
 import {map, tap} from "rxjs/operators";
@@ -18,7 +28,8 @@ import {filterLimit, generateAvatar} from "../helpers";
   providedIn: "root"
 })
 export class SubsonicService {
-  constructor(private http: HttpClient, private globals: GlobalsService) {}
+  constructor(private http: HttpClient, private globals: GlobalsService) {
+  }
 
   getAlbumListBy(type: string, size = 0, genre = ""): Observable<Album[]> {
     const url = this.globals.getUrl("getAlbumList");
@@ -67,8 +78,11 @@ export class SubsonicService {
       );
   }
 
-  getAlbumAndSongs(album: ApiAlbumSongs): {album: Album, songs: Song[]} {
-    return {album: new Album(album, this.getCoverArtUrl(album)), songs: album.song.map(s => new Song(s, this.getCoverArtUrl(s), this.getSongUrl(s)))};
+  getAlbumAndSongs(album: ApiAlbumSongs): { album: Album, songs: Song[] } {
+    return {
+      album: new Album(album, this.getCoverArtUrl(album)),
+      songs: album.song.map(s => new Song(s, this.getCoverArtUrl(s), this.getSongUrl(s)))
+    };
   }
 
   getAlbum(id: string): Observable<ApiAlbumSongs> {
@@ -90,17 +104,17 @@ export class SubsonicService {
       .pipe(map(v => v.directory));
   }
 
-  scrobble({id}: {id: string}): Observable<void> {
+  scrobble({id}: { id: string }): Observable<void> {
     const url = this.globals.getUrl("scrobble");
     const params = this.globals.params.append("id", id);
     return this.http.get<void>(url, {params: params});
   }
 
-  private getSongUrl({id}: {id: string}): string {
+  private getSongUrl({id}: { id: string }): string {
     return id ? `${this.globals.getUrl("stream")}?${this.globals.params.append("id", id)}` : "";
   }
 
-  private getCoverArtUrl({coverArt}: {coverArt: string}): string {
+  private getCoverArtUrl({coverArt}: { coverArt: string }): string {
     return coverArt ? `${this.globals.getUrl("getCoverArt")}?${this.globals.params.append("id", coverArt)}&size=300` : "";
   }
 

@@ -2,17 +2,19 @@
   <ng-container *ngIf="album as album">
     <div class="album-box clickable">
       <div class="album">
-        <div class="album-container" [routerLink]="'/album/' + album.id">
-          <img class="img-responsive" [src]="album.coverArtUrl" loading="lazy" alt="" crossorigin="anonymous" [title]="album.album" width="300" height="300">
+        <div [routerLink]="'/album/' + album.id" class="album-container">
+          <img [src]="album.coverArtUrl" [title]="album.album" alt="" class="img-responsive" crossorigin="anonymous"
+               height="300" loading="lazy" width="300">
         </div>
-        <div class="album-overlay clickable" (click)="playAlbum(album.id)">
-          <mat-icon class="play-card" [color]="'primary'">play_arrow</mat-icon>
+        <div (click)="playAlbum(album.id)" class="album-overlay clickable">
+          <mat-icon [color]="'primary'" class="play-card">play_arrow</mat-icon>
         </div>
       </div>
     </div>
     <div class="card-body">
-      <div class="title" [title]="album.album">{{album.album}}</div>
-      <div class="title subtitle link" [title]="album.artist" [routerLink]="'/artist/' + album.artistId">{{album.artist}}</div>
+      <div [title]="album.album" class="title">{{album.album}}</div>
+      <div [routerLink]="'/artist/' + album.artistId" [title]="album.artist"
+           class="title subtitle link">{{album.artist}}</div>
     </div>
   </ng-container>
 </div>

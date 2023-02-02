@@ -10,7 +10,8 @@ import {PlayerService} from "../player/player.service";
 export class AlbumCardComponent {
   @Input() album: Album | null = null;
 
-  constructor(private playerService: PlayerService) { }
+  constructor(private playerService: PlayerService) {
+  }
 
   playAlbum(id: string): void {
     this.playerService.playAlbum(id);

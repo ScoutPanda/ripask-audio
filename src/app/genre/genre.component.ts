@@ -13,7 +13,8 @@ export class GenreComponent implements OnInit {
   genre = "";
 
   constructor(private subsonicService: SubsonicService,
-              private router: ActivatedRoute) { }
+              private router: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     this.genre = this.router.snapshot.paramMap.get("id") as string;

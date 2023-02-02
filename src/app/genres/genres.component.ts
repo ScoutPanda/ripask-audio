@@ -11,7 +11,8 @@ import {forkJoin} from "rxjs";
 export class GenresComponent implements OnInit {
   genres: Genre[] = [];
 
-  constructor(private subsonicService: SubsonicService) { }
+  constructor(private subsonicService: SubsonicService) {
+  }
 
   ngOnInit(): void {
     this.subsonicService.getGenres().subscribe(genres => {
