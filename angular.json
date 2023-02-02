@@ -81,6 +81,16 @@
               "src/**/*.html"
             ]
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "ripask-audio:build:production",
+            "firebaseProject": "my-music-20393",
+            "firebaseHostingSite": "my-music-20393"
+          }
         }
       }
     }
